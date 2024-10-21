@@ -1,0 +1,32 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    RSA.txt                                            :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/21 12:25:06 by marvin            #+#    #+#              #
+#    Updated: 2024/10/21 12:25:06 by marvin           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+https://en.wikipedia.org/wiki/RSA_(cryptosystem)
+
+used in Git, for instance
+
+main appeal is that prime factorization is computationally expensive.
+Given a sufficiently large number, "d" and "e" take imense computational power to decipher
+
+Lack of Forward Secrecy
+    Because messages are decripted with the private key of the receiver, if the private key
+    gets compromised, all messages can be decripted making the server unsecure.
+
+    -> because of this, TLS 1.3 dropped support for RSA in key exchange while it is still used
+    for authentication (as git)
+
+
+if RSA server's p+rivate key gets comprimised, the previous sessions are not compromised
+because that is not the key that is used for actual encription.
+
+Servers don't change RSA keys often because they require new authentication by the Certificat Authority
+and such a chagne must be propagated to all clients, making it innefficient.

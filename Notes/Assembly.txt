@@ -1,0 +1,28 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Assembly.txt                                       :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/21 10:58:10 by marvin            #+#    #+#              #
+#    Updated: 2024/10/21 10:58:10 by marvin           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+ Intel (x86_64), also the same archiquecture for AMD chips (hence why they are direct competitors)
+
+ ARM -> advanced RISC machines, 
+    Apple, Qualcomm SnapDragon
+
+    chatgpt:
+
+"
+    ARM Architecture: ARM (Advanced RISC Machine) is a RISC (Reduced Instruction Set Computer) architecture, 
+    which emphasizes a small set of simple instructions that execute quickly. ARM is designed to be energy-efficient 
+    and is widely used in mobile devices, embedded systems, and increasingly in servers.
+
+    x86-64 Architecture: x86-64 (also known as AMD64) is a CISC (Complex Instruction Set Computer) architecture, 
+    which includes a larger set of more complex instructions that can execute multiple operations in a 
+    single instruction. This architecture is commonly used in desktops, laptops, and servers.
+"
