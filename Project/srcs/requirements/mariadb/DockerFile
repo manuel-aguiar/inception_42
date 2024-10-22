@@ -10,7 +10,6 @@
 #                                                                              #
 # **************************************************************************** #
 
-
-MAINTAINER  mmaria-d
-SHELL       /usr/bin/bash
-EXPOSE      3306
+MAINTAINER  	mmaria-d
+SHELL       	/usr/bin/bash
+EXPOSE      	3306
