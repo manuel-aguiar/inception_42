@@ -26,7 +26,7 @@ TLS 1.2 -> removal of backward compatibility with SSL 2.0
 
 
 Authentication
-    The server proves its identity by sending a diggital certificate with its public key. 
+    The server proves its identity by sending a diggital certificate with its public key.
     Client checks if the certificate is not expired and was veryfied by a Certificate Authority
     Domain match
 
@@ -41,7 +41,7 @@ Key exchange
 
     In TLS 1.2, RSA is used (public/private key). However it can become compromised if decyphered and the session will be compromised
 
-     ECDHE (Elliptic Curve Diffie-Hellman Ephemeral) or DHE (Diffie-Hellman Ephemeral) 
+     ECDHE (Elliptic Curve Diffie-Hellman Ephemeral) or DHE (Diffie-Hellman Ephemeral)
         -> these were standardized in TLS 1.3 for key exchange, dropping the RSA private
 
         since keys are temporary, if one key gets deciphered, past sessions as still protected (by their at-the-time key)
@@ -52,32 +52,6 @@ So authentication is about agreeing to a connection while key exchange is about 
 encripting and decripting the actual messages transmitted between client and server
 
 
-
-chatgpt:
-
-"
-
-    TLS Handshake (Simplified Overview)
-    Step 1: Client Hello: Your client (browser or Git client) sends a request to GitHub's server, 
-    proposing supported encryption algorithms (cipher suites) and signaling that it wants to establish
-    a secure connection.
-
-    Step 2: Server Hello and Certificate: GitHub's server responds with a Server Hello, selecting 
-    the encryption algorithm, and sends its digital certificate. The certificate contains GitHub’s
-    public key and is signed by a Certificate Authority (CA). Your client verifies the authenticity
-    of the certificate using the CA’s signature.
-
-    Step 3: Key Exchange (Temporary Key Setup): Once the certificate is validated, the client and 
-    server negotiate a temporary session key using a key exchange mechanism, like ECDHE (Elliptic
-    Curve Diffie-Hellman Ephemeral). This session key is used to encrypt the data for the rest of the session.
-
-    The key exchange process ensures forward secrecy, meaning the session key is temporary and 
-    unique to the current session. Even if the long-term private keys were compromised, the attacker
-    couldn't decrypt past sessions because the session key is ephemeral and discarded after use.
-    Step 4: Finished: Both the client and server confirm that the handshake is complete, and from 
-    this point on, all communication is encrypted using the session key.
-
-"
 
 
 
