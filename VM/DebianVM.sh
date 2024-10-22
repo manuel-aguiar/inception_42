@@ -43,7 +43,7 @@ DEBIAN_SUDO_PASS="bigPotato"
 
 DEBIAN_USER1_NAME="mmaria-d"
 DEBIAN_USER1_PASS="bigPotato"
-DEBIAN_PACKAGES="vim, curl, gcc, docker, vscode"
+DEBIAN_PACKAGES="vim, curl, gcc, docker, vscode, openssh-server"
 
 
 ##############################################
