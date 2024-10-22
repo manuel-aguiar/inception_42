@@ -1,0 +1,19 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    SSL.txt                                            :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/22 09:22:05 by marvin            #+#    #+#              #
+#    Updated: 2024/10/22 09:22:05 by marvin           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+Secure Sockets Layer, deprecated protocol in favour of TLS.
+
+Nginx configuration still uses ssl_certificate. one specifies "ssl_protocols TLSv1.2"
+goes to show the actual protocols in use and not really the old SSL
+
+Nginx conf file stayed the same for backward compatibility, nginx implementation
+changed but user can use the same conf file

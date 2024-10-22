@@ -1,0 +1,19 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    apt-get.txt                                        :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/22 08:54:15 by marvin            #+#    #+#              #
+#    Updated: 2024/10/22 08:54:15 by marvin           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+https://linux.die.net/man/8/apt-get
+
+Flags:
+    -y : answer yes to prompts ("dowanloading x amount of data, etc)
+    -b : build (also --compile, --build)
+
+install [package] -> install a package, eg php-fpm

@@ -1,0 +1,17 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Kubernetes.txt                                     :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/21 12:03:48 by marvin            #+#    #+#              #
+#    Updated: 2024/10/21 12:03:48 by marvin           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+Kubernetes
+
+Coordinates various containers in multiple machines for scallability
+Pools machine resources that can either be virtual or actual physical computers
+Communication between machines is done via https (http + tls)

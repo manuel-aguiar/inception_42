@@ -1,0 +1,21 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    VolumeVsDocker.txt                                 :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/21 08:57:53 by marvin            #+#    #+#              #
+#    Updated: 2024/10/21 08:57:53 by marvin           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+Volume is storage in the host filesystem.
+The storage is managed by the Docker daemon (/var/lib/docker/volumes/).
+It is persistent, if the container containing the database program goes down,
+the database (in the filesystem) is not destroyed.
+
+Same as the website files, don't get destroyed if the wordpress container goes down.
+Nginx needs access to the static files to send to client.
+but needs to be in the same network as wordpress/php-fpm such that it can request
+php to be run by php-fpm using wordpress content in the volume.

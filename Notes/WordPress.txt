@@ -1,0 +1,32 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    WordPress.txt                                      :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/21 15:28:19 by marvin            #+#    #+#              #
+#    Updated: 2024/10/21 15:28:19 by marvin           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+
+
+
+
+Nginx does not run php scripts but it can serve static files, hence why Nginx
+must have access to the WordPress volume
+
+
+WordPress is NOT AN EXECUTABLE.
+
+Wordpress essentially is a collection of PHP scripts, that interact with databases,
+static files, define pluggins that can be added..... libraries of php functionality....
+but essentially it is just a collection of scripts.
+
+Which are used to generate dynamic content (depending on inputs) in the form of
+html to be sent back to clients.
+
+
+
+Wordpress libraries have functions to communicate with MariaDB and MySQL
