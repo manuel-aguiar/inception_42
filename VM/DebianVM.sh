@@ -15,6 +15,7 @@
 # Resources
 # https://andreafortuna.org/2019/10/24/how-to-create-a-virtualbox-vm-from-command-line/
 # https://github.com/benmaia/42_Born2beRoot/blob/master/42Linux_vm.sh
+# https://www.debian.org/releases/stable/example-preseed.txt
 
 ##############################################
 #                                            #
