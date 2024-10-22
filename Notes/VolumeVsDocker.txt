@@ -12,7 +12,7 @@
 
 Volume is storage in the host filesystem.
 The storage is managed by the Docker daemon (/var/lib/docker/volumes/).
-It is persistent, if the container containing the database program goes down,
+It is persistent, if the container containing the program that interacts with the database goes down,
 the database (in the filesystem) is not destroyed.
 
 Same as the website files, don't get destroyed if the wordpress container goes down.
