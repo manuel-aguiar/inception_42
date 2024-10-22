@@ -138,4 +138,6 @@ VBoxManage modifyvm "$VM_NAME" --bridgeadapter1 eno2
 
 #remove the preseed file, not needed anymore
 rm -rf "$VM_PRESEED_PATH"
+
+# probably don't remove this, i just want to clean the repo x'D
 rm -rf "$VM_OS_PATH"
