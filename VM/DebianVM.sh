@@ -25,8 +25,8 @@
 
 #############       NAMES       ##############
 VM_NAME="myVM"
-VM_LOCATION="/workspaces/inception_42/VM"
-VM_OS_LINK="https://cdimage.debian.org/mirror/cdimage/archive/12.2.0/amd64/iso-cd/debian-12.2.0-amd64-netinst.iso"
+VM_LOCATION="/home/manuel/Desktop/DebianIso"
+VM_OS_LINK="https://cdimage.debian.org/mirror/cdimage/archive/11.11.0/amd64/iso-dvd/debian-11.11.0-amd64-DVD-1.iso"
 VM_OS_VIRTUALBOX_NAME="Debian 64"
 
 #############       SPECS       ##############
@@ -55,7 +55,7 @@ DEBIAN_PACKAGES="build-essentials, vim, curl, docker, vscode, openssh-server, ne
 
 
 # HELPER variables
-VM_OS_IMAGENAME="debian.iso"
+VM_OS_IMAGENAME="debian-live-11.10.0-amd64-gnome.iso"
 VM_OS_PATH="$VM_LOCATION"/"$VM_OS_IMAGENAME"
 VM_PRESEED_NAME=preseed.cfg
 VM_PRESEED_PATH="$VM_LOCATION"/"$VM_PRESEED_NAME"
@@ -75,6 +75,8 @@ if [ ! -f "$VM_OS_PATH" ]; then
 else
     echo "File $VM_OS_IMAGENAME already exists in target directory, skipping download."
 fi
+
+exit
 
 touch "$VM_PRESEED_PATH"
 
@@ -128,17 +130,16 @@ VBoxManage storagectl "$VM_NAME" --name "SATA Controller" --add sata --controlle
 VBoxManage storageattach "$VM_NAME" --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium  "$VM_LOCATION"/"$VM_NAME"/"$VM_NAME_DISK"
 VBoxManage storagectl "$VM_NAME" --name "IDE Controller" --add ide --controller PIIX4
 VBoxManage storageattach "$VM_NAME" --storagectl "IDE Controller" --port 1 --device 0 --type dvddrive --medium "$VM_OS_PATH"
-VBoxManage storageattach "$VM_NAME" --storagectl "IDE Controller" --port 0 --device 1 --type dvddrive --medium "$VM_PRESEED_PATH"
 VBoxManage modifyvm "$VM_NAME" --boot1 dvd --boot2 disk --boot3 none --boot4 none
 
 
 VBoxManage modifyvm "$VM_NAME" --nictype1 82540EM
 VBoxManage modifyvm "$VM_NAME" --nic1 bridged
 VBoxManage modifyvm "$VM_NAME" --nicpromisc1 deny
-VBoxManage modifyvm "$VM_NAME" --bridgeadapter1 eno2
+VBoxManage modifyvm "$VM_NAME" --bridgeadapter1 wlo1
 
 #remove the preseed file, not needed anymore
 rm -rf "$VM_PRESEED_PATH"
 
 # probably don't remove this, i just want to clean the repo x'D
-rm -rf "$VM_OS_PATH"
+#rm -rf "$VM_OS_PATH"
