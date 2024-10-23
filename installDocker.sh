@@ -6,11 +6,14 @@
 #    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/23 07:50:31 by mmaria-d          #+#    #+#              #
-#    Updated: 2024/10/23 07:54:44 by mmaria-d         ###   ########.fr        #
+#    Updated: 2024/10/23 08:11:45 by mmaria-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# Resources:
 # https://docs.docker.com/engine/install/ubuntu/
+
+# literal copy-paste from their website
 
 for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
 
