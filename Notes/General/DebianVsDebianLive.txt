@@ -1,18 +1,14 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    docker-compose.txt                                 :+:      :+:    :+:    #
+#    DebianVsDebianLive.txt                             :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/10/23 15:33:12 by mmaria-d          #+#    #+#              #
-#    Updated: 2024/10/23 15:39:06 by mmaria-d         ###   ########.fr        #
+#    Created: 2024/10/23 15:46:03 by mmaria-d          #+#    #+#              #
+#    Updated: 2024/10/23 15:46:34 by mmaria-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# The file that coordinates the full building process with all containers.
-
-YAML = YAML ain't markup language
-    recursive acronym lol
-
-yml = yaml, yml is still supported for compatibility reasons but prefer to use .yaml configuration files
+Debian Live is literally launching a ready-to-go operating system from the boot
+Debian, requires instalation on the host machine
