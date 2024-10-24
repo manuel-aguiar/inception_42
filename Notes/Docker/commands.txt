@@ -1,0 +1,157 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    commands.txt                                       :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/24 14:54:01 by mmaria-d          #+#    #+#              #
+#    Updated: 2024/10/24 16:00:36 by mmaria-d         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+#######################################################
+docker ps
+    same as "docker container ls"
+    -a all,
+    -l latest created
+    -q container ids only
+
+#########################################################
+
+docker build -> build the docker image
+
+    the default is to look for a file named Dockerfile in the folder indicated
+    but you can specify directly -f /--file  [PATH/*...[dockerfile name]]
+
+    as in: sudo docker build -t test2 --file ./DockerTest/potato ./DockerTest
+
+    the last parameter is PATH, that specifies what folder are the files (including the Dockerfile)
+    in.
+
+    All the files that are here will be passed to the docker daemon (man page). That is
+    why we then COPY (context path off of that folder) to the image's file system for further use
+    as in my /DockerTest folder, hello.c is copied to the build context, and the Dockerfile
+    COPY that to /app folder inside the container
+
+                ****************************************
+"
+    --add-host []
+          Add a custom host-to-IP mapping (host=ip, or host:ip)
+
+       Add a line to /etc/hosts. The format is hostname=ip, or hostname:ip.
+          The --add-host option can be set multiple times.
+"
+    adds that entry to the container's /etc/hosts for further lookup
+    
+    -t add a tag to the image (a name, let's say)
+
+
+#################################################
+
+docker tag -> alias for "docker image tag"
+
+##################################################
+
+docker create -> creates a container from the image
+
+        same as "docker container create"
+
+    here one can even overwrtite entrypoints, hosts, dns servers from the base image
+
+    we can create various custom containers from the same image
+    lots of flags, go to man page.
+
+
+#####################################################
+
+docker run (docker container run)
+
+    creates and runs a container from an image
+
+
+####################################################
+
+docker images
+
+    lists all available images
+
+    -a all
+    -f filter
+    -q only image ids
+
+
+    filter is not explicit, here is chatgpt:
+
+        sudo docker images -f dangling=true
+            -> filter for untagged images
+
+
+##################################################
+
+docker rmi (docker image rm)
+    -f force removal of image
+        HOWEVER, if there is a container running associated with that
+        image, all docker will do is untag it, and not really delete it
+
+    
+    remove dangling images for instance:
+        sudo docker rmi -f $(sudo docker images -f dangling=true | grep none | awk '{print $3}')
+
+
+####################################################
+
+docker image prune -> remove dangling images
+
+sudo docker images
+REPOSITORY    TAG       IMAGE ID       CREATED          SIZE
+newone        latest    361b3925de6e   7 minutes ago    334MB
+test2         latest    bc2b81f207af   34 minutes ago   334MB
+hello-world   latest    d2c94e258dcb   18 months ago    13.3kB
+manuel@manuel-MS-7D98:~/Desktop/inception_42/DockerTest$ sudo docker build --no-cache .
+[+] Building 9.2s (10/10) FINISHED                                                                                                                    docker:default
+ => [internal] load build definition from Dockerfile                                                                                                            0.0s
+ => => transferring dockerfile: 1.15kB                                                                                                                          0.0s
+ => [internal] load metadata for docker.io/library/debian:bullseye                                                                                              0.5s
+ => [internal] load .dockerignore                                                                                                                               0.0s
+ => => transferring context: 2B                                                                                                                                 0.0s
+ => CACHED [1/5] FROM docker.io/library/debian:bullseye@sha256:d0036be35fe0a4d2649bf074ca467a37dab8c5b26bbbdfca0375b4dc682f011d                                 0.0s
+ => [internal] load build context                                                                                                                               0.0s
+ => => transferring context: 29B                                                                                                                                0.0s
+ => [2/5] RUN apt-get update && apt-get install -y gcc                                                                                                          7.8s
+ => [3/5] RUN mkdir -p /app                                                                                                                                     0.2s 
+ => [4/5] COPY hello.c /app                                                                                                                                     0.0s 
+ => [5/5] RUN cc -Wall -Wextra -Werror /app/hello.c -o /app/hello.out                                                                                           0.2s 
+ => exporting to image                                                                                                                                          0.4s 
+ => => exporting layers                                                                                                                                         0.4s 
+ => => writing image sha256:0b92059b06e9f7244fbb19bb986b52210d11ae9188b0a5b66f81b7fa3b10d304                                                                    0.0s 
+manuel@manuel-MS-7D98:~/Desktop/inception_42/DockerTest$ sudo docker images
+REPOSITORY    TAG       IMAGE ID       CREATED          SIZE
+<none>        <none>    0b92059b06e9   5 seconds ago    334MB
+newone        latest    361b3925de6e   8 minutes ago    334MB
+test2         latest    bc2b81f207af   36 minutes ago   334MB
+hello-world   latest    d2c94e258dcb   18 months ago    13.3kB
+manuel@manuel-MS-7D98:~/Desktop/inception_42/DockerTest$ sudo docker image prune
+WARNING! This will remove all dangling images.
+Are you sure you want to continue? [y/N] y
+Deleted Images:
+deleted: sha256:0b92059b06e9f7244fbb19bb986b52210d11ae9188b0a5b66f81b7fa3b10d304
+
+Total reclaimed space: 0B
+
+
+TOTAL RECLAIMED SPACE 0?????????????
+    images are made of layers, if layers are common  (same layer was used to build a previous image)
+    docker will reuse the layer.
+
+    the size of an image is the sum of the layers but if all are the same, when you delete the latest
+    only the refereces disappear and you don't save space: because you didn't overuse to begin with
+
+
+############################################################3
+
+docker start (docker container start)
+
+    starts an already created container.
+
+    docker run = docker create + docker start

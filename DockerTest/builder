@@ -1,0 +1,22 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    builder                                            :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/24 16:26:50 by mmaria-d          #+#    #+#              #
+#    Updated: 2024/10/24 16:34:23 by mmaria-d         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+# Build stage
+FROM debian:bullseye-slim AS builder
+RUN apt-get update && apt-get install -y gcc
+COPY hello.c /hello.c
+RUN gcc -static -o hello.out /hello.c
+
+# Final stage
+FROM scratch
+COPY --from=builder /hello.out /hello.out
+ENTRYPOINT ["/hello.out"]

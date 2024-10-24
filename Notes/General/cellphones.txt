@@ -1,0 +1,37 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    cellphones.txt                                     :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/24 09:30:01 by mmaria-d          #+#    #+#              #
+#    Updated: 2024/10/24 11:45:01 by mmaria-d         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+Smartphones:
+
+Modern smartphones have a connect-socket at the OS level to a centralized 
+service that notifies the phone when
+there is data to be received: an email from GMAIL an authentication request
+from Microsoft Authenticator etc.
+
+The name of the service on the other side are Google Cloud Messaging (GCM) 
+(now replaced by Firebase Cloud Messaging, FCM), or Apple's APNs (
+Apple Push Notification Service) for iOS.
+
+So, your phone as a persistent connection established by the OS towards one of this services
+When there is something to send, the FCM/APN server sends it to the phone, the phone has
+an epoll/select/kqueue to track the incoming message and processes it, delievering 
+the notification to you.
+
+Old-phones (like nokia 3310):
+
+Old phones don't use sockets as that would have been to expensive for the hardware
+Instead, the would ping the nearest cell tower to check if there was any incoming
+traffic to it.
+
+
+GSM (Global System for Mobile Communications).
+
