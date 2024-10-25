@@ -10,9 +10,9 @@
 #                                                                              #
 # **************************************************************************** #
 
-MAINTAINER      mmaria-d
-SHELL           /usr/bin/bash
-EXPOSE          9000
+# MAINTAINER      mmaria-d
+# SHELL           /usr/bin/bash
+# EXPOSE          9000
 
 
 # update tools
