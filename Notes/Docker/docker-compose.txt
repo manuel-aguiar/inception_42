@@ -6,7 +6,7 @@
 #    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/23 15:33:12 by mmaria-d          #+#    #+#              #
-#    Updated: 2024/10/29 09:20:46 by codespace        ###   ########.fr        #
+#    Updated: 2024/10/29 10:11:11 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,3 +27,10 @@ Directives:
 		restrict container communication to specific ports. Essentially, opens the specific
 		ports such that a container can communicate with others via that port (listening or connecting)
 		to be used inside a docker network
+
+	build:
+		where the DockerFile for that service is located such that the image can be built
+
+	build:
+		context: (folder)
+		dockerfile: (the name of the dockerfile)
