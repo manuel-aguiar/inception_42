@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    docker-compose.txt                                 :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
+#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/23 15:33:12 by mmaria-d          #+#    #+#              #
-#    Updated: 2024/10/23 15:39:06 by mmaria-d         ###   ########.fr        #
+#    Updated: 2024/10/29 09:20:46 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,3 +16,14 @@ YAML = YAML ain't markup language
     recursive acronym lol
 
 yml = yaml, yml is still supported for compatibility reasons but prefer to use .yaml configuration files
+
+Directives:
+	ports
+		used for communciation between host and container. In our case, we are forwarding
+		communication to host port 443 to nginx container port 443
+		inter containers, that is not needed since they are in the same network
+
+	expose:
+		restrict container communication to specific ports. Essentially, opens the specific
+		ports such that a container can communicate with others via that port (listening or connecting)
+		to be used inside a docker network

@@ -10,3 +10,40 @@
 #                                                                              #
 # **************************************************************************** #
 
+x-common-config: &config
+  env_file: config.env
+  restart: always
+
+services:
+  nginx:
+    <<: *config
+    image: nginx
+    ports:
+      - ${PORT_FORWARD_TLS_HOST_TO_NGINX}:${PORT_LISTEN_TLS_NGINX}
+      
+  mariadb:
+    image: mariadb
+    environment:
+      MYSQL_PASSWORD_FILE: /run/secrets/db_password
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+
+    secrets:
+      - db_password
+      - db_root_password
+
+
+  wordpress:
+    image: wordpress
+
+networks:
+  inception:
+    driver: bridge
+
+
+secrets:
+  db_password:
+    file: ../secrets/db_password.txt
+  db_root_password:
+    file: ../secrets/db_root_password.txt
+
+volumes:

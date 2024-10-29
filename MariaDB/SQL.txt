@@ -6,7 +6,10 @@
 #    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/25 08:38:47 by codespace         #+#    #+#              #
-#    Updated: 2024/10/25 08:38:48 by codespace        ###   ########.fr        #
+#    Updated: 2024/10/29 08:41:16 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+https://www.mariadbtutorial.com/
+
 
