@@ -1,0 +1,17 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    redis-cache.txt                                    :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/29 10:24:42 by codespace         #+#    #+#              #
+#    Updated: 2024/10/29 10:26:21 by codespace        ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+Redis cache
+
+Remote Dictionary Server
+Essentially an in RAM database used for caching frequently accessed pages
+for faster retrieval without going to disk to fetch files for clients

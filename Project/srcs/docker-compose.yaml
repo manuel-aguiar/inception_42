@@ -23,6 +23,8 @@ services:
       dockerfile: Dockerfile
     image: nginx_image
     ports: "${PORT_FORWARD_TLS_HOST_TO_NGINX}:${PORT_LISTEN_TLS_NGINX}"
+    networks:
+      - inception_network
 
   mariadb:
     <<: *config
@@ -37,7 +39,8 @@ services:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
 
     expose: ${PORT_LISTEN_MARIADB}
-
+    networks:
+      - inception_network
     secrets:
       - db_user
       - db_password
@@ -52,9 +55,11 @@ services:
       dockerfile: Dockerfile
     image: wordpress_image
     expose: ${PORT_LISTEN_WORDPRESS}
+    networks:
+      - inception_network
 
 networks:
-  inception:
+  inception_network:
     driver: bridge
 
 
