@@ -10,6 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-MAINTAINER      mmaria-d
-SHELL           /usr/bin/bash
+FROM alpine:3.19
+
+SHELL           ["bash", "/usr/bin"]
 EXPOSE          443

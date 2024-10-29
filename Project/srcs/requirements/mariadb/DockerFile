@@ -10,6 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
-MAINTAINER  	mmaria-d
-SHELL       	/usr/bin/bash
-EXPOSE      	3306
+FROM alpine:3.19
+
+#MAINTAINER  	mmaria-d
+#SHELL       	/usr/bin/bash
+#EXPOSE      	3306
