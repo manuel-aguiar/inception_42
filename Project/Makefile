@@ -18,7 +18,7 @@ NGINX_DIR 			= 	$(BUILD_DIR)/nginx
 MARIADB_DIR 		= 	$(BUILD_DIR)/mariadb
 WORDPRESS_DIR 		= 	$(BUILD_DIR)/wordpress
 
-CONFIG_FILE 		= 	srcs/config.env
+CONFIG_FILE 		= 	$(SRCS_DIR)/config.env
 
 SECRETS_FILES		= 	$(SECRETS_DIR)/credentials.txt				 	\
 					  	$(SECRETS_DIR)/db_password 						\

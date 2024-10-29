@@ -10,7 +10,9 @@
 #                                                                              #
 # **************************************************************************** #
 
-FROM alpine:3.19
+#FROM alpine:3.19
+
+FROM debian:bullseye
 
 #MAINTAINER  	mmaria-d
 #SHELL       	/usr/bin/bash

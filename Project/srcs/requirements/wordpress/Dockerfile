@@ -10,25 +10,13 @@
 #                                                                              #
 # **************************************************************************** #
 
-FROM alpine:3.19
-
-# MAINTAINER      mmaria-d
-# SHELL           /usr/bin/bash
-# EXPOSE          9000
-
+FROM debian:bullseye
 
 # update tools
-RUN             apt-get update
-
-# install the php interpreter (embedded in a server)
-RUN             apt-get install php-fpm
-
-# install php libraries that implement the connections with MySql/MariaDB
-RUN             apt-get install php-mysql
-
-# install debugging utilities, like a CLI to run individual scripts
-RUN             apt-get install php-cli
-
+RUN             apt-get update -y && \
+				apt-get install php-fpm  -y && \
+				apt-get install php-mysql -y && \
+				apt-get install php-cli -y
 
 # install WordPress scripts package:
 
