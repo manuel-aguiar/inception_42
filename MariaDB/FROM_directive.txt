@@ -1,0 +1,31 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    FROM_directive.txt                                 :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/25 12:35:51 by marvin            #+#    #+#              #
+#    Updated: 2024/10/29 09:24:05 by codespace        ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+Docker FROM directive tries to find the premade image on the local Docker engine
+and if not, it fetches on DockerHub.
+
+that is why we use debian:bullseye, etc it goes to dockerhub and pulls that ready made image.
+
+There are already ready made images for all our containers.
+
+nginx:1.23.1-bullseye
+php:8.2-fpm-bullseye
+mariadb:10.6-bullseye
+
+these are optimized for the particular thing we are trying to build.
+This is however forbidden by the subject, we have to build our images ourselves.
+
+We can, however fetch the images we want for either Debian or Alpine.
+
+These are the only ones we can put in the FROM directive as our base image.
+
+We can go for the slim version at least in what these OS are concerned.

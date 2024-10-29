@@ -1,0 +1,59 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    user.txt                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/25 10:47:58 by marvin            #+#    #+#              #
+#    Updated: 2024/10/29 09:24:31 by codespace        ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+https://mariadb.com/kb/en/create-user/
+
+
+create the user, allows forcing of ssl when communicating for instance
+
+CREATE [OR REPLACE] USER [IF NOT EXISTS]
+ user_specification [,user_specification ...]
+  [REQUIRE {NONE | tls_option [[AND] tls_option ...] }]
+  [WITH resource_option [resource_option ...] ]
+  [lock_option] [password_option]
+
+    user_specification:
+    username [authentication_option]
+
+    authentication_option:
+    IDENTIFIED BY 'password'
+    | IDENTIFIED BY PASSWORD 'password_hash'
+    | IDENTIFIED {VIA|WITH} authentication_rule [OR authentication_rule  ...]
+
+    authentication_rule:
+        authentication_plugin
+    | authentication_plugin {USING|AS} 'authentication_string'
+    | authentication_plugin {USING|AS} PASSWORD('password')
+
+    tls_option:
+    SSL
+    | X509
+    | CIPHER 'cipher'
+    | ISSUER 'issuer'
+    | SUBJECT 'subject'
+
+    resource_option:
+    MAX_QUERIES_PER_HOUR count
+    | MAX_UPDATES_PER_HOUR count
+    | MAX_CONNECTIONS_PER_HOUR count
+    | MAX_USER_CONNECTIONS count
+    | MAX_STATEMENT_TIME time
+
+    password_option:
+    PASSWORD EXPIRE
+    | PASSWORD EXPIRE DEFAULT
+    | PASSWORD EXPIRE NEVER
+    | PASSWORD EXPIRE INTERVAL N DAY
+
+    lock_option:
+        ACCOUNT LOCK
+    | ACCOUNT UNLOCK

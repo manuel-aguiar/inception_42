@@ -1,0 +1,23 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    xargs.txt                                          :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/25 11:08:40 by marvin            #+#    #+#              #
+#    Updated: 2024/10/29 09:24:39 by codespace        ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+xargs utility serves to take some input and translate that to a single line
+such that it can be used in the commandline directly to execute another command.
+
+For instance: export $(cat .env | xargs) (similar to export $(cat .env | awk '{print $1}') )
+    -> not really, if a column is empty then there will be empty lines and potentially
+    lead to unnintended consequences
+
+cat .env will output a list of environment variables, and xargs will take it,
+remove newlines and leave the output on the command line
+
+-0 delimit args by NULL (to prevent filenames that have spaces becoming a problem)

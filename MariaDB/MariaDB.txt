@@ -1,0 +1,51 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    MariaDB.txt                                        :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/25 10:05:39 by marvin            #+#    #+#              #
+#    Updated: 2024/10/29 09:24:16 by codespace        ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+Server that serves as an interpreter of SQL queries sent to it. It is the Server
+that is responsible for setting a listening socket for receiving connections.
+
+MariaDB client essentially connects to the MariaDB server (mysql CLI is a client)
+
+The MariaDB server ususally listens to both the Unix socket for local comunnication
+and a tcp socket for external communication.
+
+by default, MariaDb listens on 127.0.0.1:3306 and /var/lib/mysql/mysql.sock or
+/var/run/mysqld/mysqld.sock
+these changes can be configured in the mariadb.conf file
+
+mariadb and client may agree to communicate using TLS. if a docker network is local
+like inception, it is probably overkill since the only point of entry is nginx
+
+however in case a docker network spans multiple hosts (machines), docker swarm mode,
+machines may be on different machines and so the communication goes through the physical
+boundary (literal cables wifi outside the machine), therefore such communication
+should be encripted using for instance TLS.
+
+furthermore, if an attacker gains access to a process on the host, it may be able
+to intercept communications meaning unencrypted communication can be unsafe.
+
+if in the future, the network is changed from local to remote, then it is already encrypted.
+
+
+
+Now, php-fpm MUST IMPLEMENT the database communication tools itself. it make ssense since the scripts
+themselves do not control if communication is encrypted or not.
+So, when you configure php-fpm to communicate to the database using TLS, the runtime will
+exeecute the sql queries using php-fpm configuration, which includes: protocols (TLS).
+
+wp-config.php : in this file you pass data about ip, port and login details to actually
+access the database. so php-fpm, when the call for a query is done, takes this info
+and the configuration of encryption to actually open the socket and establishing communication.
+
+So, php etablished the "when" and "what" of the communication to the database, whi php-fpm is responsible
+for the "how".
+

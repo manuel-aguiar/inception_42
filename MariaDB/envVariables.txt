@@ -1,0 +1,17 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    envVariables.txt                                   :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/25 11:04:38 by marvin            #+#    #+#              #
+#    Updated: 2024/10/29 09:22:37 by codespace        ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+we will have to pass environment variables to a shell script / dockerfile
+
+we can have a .env with multiple variables and then do:
+                export $(cat .env | xargs)
+
