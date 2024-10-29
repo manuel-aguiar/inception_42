@@ -11,6 +11,7 @@
 # **************************************************************************** #
 
 FROM alpine:3.19
+
 # MAINTAINER      mmaria-d
 # SHELL           /usr/bin/bash
 # EXPOSE          9000
