@@ -12,5 +12,7 @@
 
 FROM alpine:3.19
 
-SHELL           ["bash", "/usr/bin"]
-EXPOSE          443
+COPY 	tools/ .
+
+RUN 	apk add --no-cache gettext && \
+	 	envsubst < /tools/nginx_template.conf > /tools/nginx.conf
