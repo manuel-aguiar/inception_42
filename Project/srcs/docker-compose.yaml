@@ -21,8 +21,8 @@ services:
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
-    ports:
-      - ${PORT_FORWARD_TLS_HOST_TO_NGINX}:${PORT_LISTEN_TLS_NGINX}
+    image: nginx_image
+    ports: "${PORT_FORWARD_TLS_HOST_TO_NGINX}:${PORT_LISTEN_TLS_NGINX}"
 
   mariadb:
     <<: *config
@@ -30,13 +30,13 @@ services:
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
+    image: mariadb_image
     environment:
       MYSQL_USER_FILE: /run/secrets/db_user
       MYSQL_PASSWORD_FILE: /run/secrets/db_password
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
 
-    expose:
-      - ${PORT_LISTEN_MARIADB}
+    expose: ${PORT_LISTEN_MARIADB}
 
     secrets:
       - db_user
@@ -50,8 +50,8 @@ services:
     build:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
-    expose:
-      - ${PORT_LISTEN_WORDPRESS}
+    image: wordpress_image
+    expose: ${PORT_LISTEN_WORDPRESS}
 
 networks:
   inception:
@@ -67,3 +67,7 @@ secrets:
     file: ../secrets/db_user.txt
 
 volumes:
+  wordpress_data:
+
+
+  mariadb_data:

@@ -14,21 +14,3 @@ Makefile -> docker-compose.yml -> Dockerfiles
 
 https://docs.docker.com/reference/dockerfile/
 
-ADD	                Add local or remote files and directories.
-ARG	                Use build-time variables.
-CMD	                Specify default commands.
-COPY	            Copy files and directories.
-ENTRYPOINT	        Specify default executable.                                             -> the executable to launch by the container, can be a script that launches as well
-ENV	                Set environment variables.                                              -> like bash "export"
-EXPOSE	            Describe which ports your application is listening on.                  -> hm.. nothing to add, sets up listening sockets on the identified ports
-FROM	            Create a new build stage from a base image.
-HEALTHCHECK	        Check a container's health on startup.
-LABEL	            Add metadata to an image.
-MAINTAINER	        Specify the author of an image.                                         -> mmaria-d
-ONBUILD	            Specify instructions for when the image is used in a build.
-RUN	                Execute build commands.
-SHELL	            Set the default shell of an image.
-STOPSIGNAL	        Specify the system call signal for exiting a container.
-USER	            Set user and group ID.
-VOLUME	            Create volume mounts.
-WORKDIR	            Change working directory.
