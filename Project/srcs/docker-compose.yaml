@@ -25,6 +25,9 @@ services:
     ports: "${PORT_FORWARD_TLS_HOST_TO_NGINX}:${PORT_LISTEN_TLS_NGINX}"
     networks:
       - inception_network
+    args:
+      DOCKER_CONFIG_FILE: ${DOCKER_CONFIG_FILE}
+
 
   mariadb:
     <<: *config
@@ -45,7 +48,8 @@ services:
       - db_user
       - db_password
       - db_root_password
-
+    args:
+      DOCKER_CONFIG_FILE: ${DOCKER_CONFIG_FILE}
 
   wordpress:
     <<: *config
@@ -57,7 +61,9 @@ services:
     expose: ${PORT_LISTEN_WORDPRESS}
     networks:
       - inception_network
-
+    args:
+      DOCKER_CONFIG_FILE: ${DOCKER_CONFIG_FILE}
+      
 networks:
   inception_network:
     driver: bridge
