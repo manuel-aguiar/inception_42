@@ -50,6 +50,6 @@ clean:
 fclean: clean
 
 git: fclean
-	git add . && git commit -m "update" && git push
+	(cd .. && git add . && git commit -m "update" && git push)
 
 .PHONY: clean fclean git
