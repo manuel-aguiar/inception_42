@@ -42,9 +42,7 @@ all: $(CONFIG_PATH) $(SECRETS_FILES) $(NGINX_FILES) $(MARIADB_FILES) $(WORDPRESS
 
 	docker compose -f srcs/docker-compose.yaml up --build
 
-	@rm $(NGINX_DIR)/$(CONFIG_FILE)
-	@rm $(MARIADB_DIR)/$(CONFIG_FILE)
-	@rm $(WORDPRESS_DIR)/$(CONFIG_FILE)
+	clean
 
 
 clean:
