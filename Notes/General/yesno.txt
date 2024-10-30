@@ -1,25 +1,19 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Dockerfile                                         :+:      :+:    :+:    #
+#    yesno.txt                                          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/10/24 13:41:20 by mmaria-d          #+#    #+#              #
-#    Updated: 2024/10/30 13:46:44 by mmaria-d         ###   ########.fr        #
+#    Created: 2024/10/30 10:14:29 by mmaria-d          #+#    #+#              #
+#    Updated: 2024/10/30 10:16:10 by mmaria-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FROM  debian:bullseye-slim
+utility "yes" outputs continuously a "y"
+can be used via pipe to answer "y" to any prompt that may require it in thefollowing commands
+usually used with a pipe, as:
 
-RUN apt-get update && apt-get install -y gcc procps
+yes | sudo apt-get upgrade (similar to sudo apt-get upgrade -y)
 
-RUN mkdir -p /app
-
-COPY hello.c /app
-
-RUN cc -Wall -Wextra -Werror /app/hello.c -o /app/hello.out
-
-ENTRYPOINT ["/app/hello.out"]
-
-STOPSIGNAL SIGQUIT
+most of the programs do not have flags for automattic answer, this does it

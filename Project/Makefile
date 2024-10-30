@@ -54,6 +54,14 @@ clean:
 	@if [ -f $(WORDPRESS_DIR)/$(CONFIG_FILE) ]; then rm $(WORDPRESS_DIR)/$(CONFIG_FILE); fi
 
 fclean: clean
+	yes | docker system prune -a -f
+	yes | docker image prune -a -f
+	yes | docker container prune -f
+	yes | docker builder prune -a -f
+	yes | docker network prune -f
+	yes | docker volume prune -f
+
+re: fclean all
 
 git: fclean
 	(cd .. && git add . && git commit -m "update" && git push)

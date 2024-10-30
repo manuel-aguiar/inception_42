@@ -1,0 +1,27 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    nginx.txt                                          :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/30 10:39:19 by mmaria-d          #+#    #+#              #
+#    Updated: 2024/10/30 12:52:08 by mmaria-d         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+http server, reverse proxy server, mail proxy serveropen source
+
+Running:
+    -c specify configuration file
+
+
+
+"-g daemon off;"
+    - by default, nginx forks and detaches from the terminal, running as a background process (a daemon)
+    - by running nginx as a foreground process, nginx is effectively PID1.
+
+    other wise, the PID1 will daemonize itself, and exit, leading to the effective
+    end of the container runing logic and close it.
+
+    

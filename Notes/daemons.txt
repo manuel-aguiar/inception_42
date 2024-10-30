@@ -26,3 +26,35 @@ daemons may be configured to auto restart to make sure the services are availabl
 
 Literally the origin of the word is "demon", as in some background magic working.
     In Windows NT (kernel), the daemon is called kernel.
+
+
+    via chatgpt, how a program can run as a "daemon" after being called from the terminal:
+
+int main()
+{
+    pid_t pid = fork();
+    if (pid < 0) {
+        return -1;
+    }
+
+    if (pid > 0) {
+        exit(0);
+    }
+
+    // Create a new session
+    if (setsid() < 0) {
+        return -1;
+    }
+
+    // Change the working directory
+    chdir("/");
+
+    // Redirect standard file descriptors
+    freopen("/dev/null", "r", stdin);
+    freopen("/dev/null", "w", stdout);
+    freopen("/dev/null", "w", stderr);
+
+    // Now run the actual Nginx process
+    execve("/path/to/nginx", ...);
+    return 0; // doesn0t reach here if execve is successfull
+}
