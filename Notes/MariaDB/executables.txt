@@ -1,0 +1,26 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    executables.txt                                    :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/30 16:40:48 by mmaria-d          #+#    #+#              #
+#    Updated: 2024/10/30 16:48:46 by mmaria-d         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+mysql -> command line interface to interact with the MariaDB database
+
+    same as mariadb
+
+mysqld -> daemon of the MariaDB server
+    -> main program that accesses the directory that contains databases and tables (log files, etc)
+
+    same as mariadbd
+
+mysqld_safe -> daemon of the MariaDB server
+    -> same as above, it is how the server is started. This executable is recommended
+    for startup as it addresses some security concerns with the old executable
+
+    same as mariadbd-safe

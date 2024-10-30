@@ -27,8 +27,10 @@ RUN 		apt-get update -y && \
 			apt-get install gettext nginx openssl -y && \
 			\
 			export $(cat ${DOCKER_CONFIG_FILE} | xargs) && \
+			\
 			envsubst $(cat ${DOCKER_CONFIG_FILE} | awk '{print $1}' | cut -d '=' -f1 | sed 's/^/$/' | paste -sd, - | sed "s/^/'/" | sed "s/$/'/") \
 			< nginx_template.conf > /etc/nginx/nginx.conf && \
+			\
 			rm -f ${DOCKER_CONFIG_FILE} && \
 			\
 			openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
