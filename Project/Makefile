@@ -48,9 +48,9 @@ all: $(CONFIG_PATH) $(SECRETS_FILES) $(NGINX_FILES) $(MARIADB_FILES) $(WORDPRESS
 
 
 clean:
-	if [ -f $(NGINX_DIR)/$(CONFIG_FILE)]; then rm $(NGINX_DIR)/$(CONFIG_FILE); fi
-	if [ -f $(MARIADB_DIR)/$(CONFIG_FILE)]; then rm $(MARIADB_DIR)/$(CONFIG_FILE); fi
-	if [ -f $(WORDPRESS_DIR)/$(CONFIG_FILE)]; then rm $(WORDPRESS_DIR)/$(CONFIG_FILE); fi
+	if [ -f $(NGINX_DIR)/$(CONFIG_FILE) ]; then rm $(NGINX_DIR)/$(CONFIG_FILE); fi
+	if [ -f $(MARIADB_DIR)/$(CONFIG_FILE) ]; then rm $(MARIADB_DIR)/$(CONFIG_FILE); fi
+	if [ -f $(WORDPRESS_DIR)/$(CONFIG_FILE) ]; then rm $(WORDPRESS_DIR)/$(CONFIG_FILE); fi
 
 fclean: clean
 
