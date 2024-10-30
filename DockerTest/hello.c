@@ -6,7 +6,7 @@
 /*   By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 13:47:29 by mmaria-d          #+#    #+#             */
-/*   Updated: 2024/10/30 13:44:39 by mmaria-d         ###   ########.fr       */
+/*   Updated: 2024/10/30 13:48:03 by mmaria-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void handle_signal(int sig) {
         case SIGQUIT:
             printf("Received SIGQUIT (signal number %d)\n", sig);
             fflush(stdout); 
-            _exit(0);
+            exit(0);
             break;
         case SIGINT:
             printf("Received SIGINT (signal number %d)\n", sig);
