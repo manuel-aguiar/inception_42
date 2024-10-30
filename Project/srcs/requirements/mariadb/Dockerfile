@@ -14,6 +14,4 @@
 
 FROM debian:bullseye
 
-#MAINTAINER  	mmaria-d
-#SHELL       	/usr/bin/bash
-#EXPOSE      	3306
+

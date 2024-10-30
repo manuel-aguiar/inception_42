@@ -45,7 +45,7 @@ all: $(CONFIG_PATH) $(SECRETS_FILES) $(NGINX_FILES) $(MARIADB_FILES) $(WORDPRESS
 
 	docker compose -f $(COMPOSE_PATH) --env-file $(CONFIG_PATH) up --build
 
-	clean
+	#clean
 
 
 clean:

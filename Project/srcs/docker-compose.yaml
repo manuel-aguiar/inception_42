@@ -29,6 +29,8 @@ services:
     networks:
       - inception_network
 
+    restart: always
+
 
 
   mariadb:
@@ -53,6 +55,8 @@ services:
       - db_user
       - db_password
       - db_root_password
+    
+    restart: always
 
 
   wordpress:
@@ -68,6 +72,8 @@ services:
       - ${PORT_LISTEN_WORDPRESS}
     networks:
       - inception_network
+    
+    restart: always
 
       
 networks:
