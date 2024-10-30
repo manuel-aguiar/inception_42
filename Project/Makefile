@@ -22,6 +22,9 @@ WORDPRESS_DIR 		= 	$(BUILD_DIR)/wordpress
 CONFIG_FILE 		= 	config.env
 CONFIG_PATH			= 	$(SRCS_DIR)/$(CONFIG_FILE)
 
+COMPOSE_FILE		= 	docker-compose.yaml
+COMPOSE_PATH		= 	$(SRCS_DIR)/$(COMPOSE_FILE)
+
 SECRETS_FILES		= 	$(SECRETS_DIR)/credentials.txt				 	\
 					  	$(SECRETS_DIR)/db_password.txt					\
 					  	$(SECRETS_DIR)/db_root_password.txt 			\
@@ -40,7 +43,7 @@ all: $(CONFIG_PATH) $(SECRETS_FILES) $(NGINX_FILES) $(MARIADB_FILES) $(WORDPRESS
 	@cp $(CONFIG_PATH) $(MARIADB_DIR)
 	@cp $(CONFIG_PATH) $(WORDPRESS_DIR)
 
-	docker compose -f srcs/docker-compose.yaml up --build
+	docker compose -f $(COMPOSE_PATH) --env-file $(CONFIG_PATH) up --build
 
 	clean
 

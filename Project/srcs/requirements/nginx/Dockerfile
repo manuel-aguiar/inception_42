@@ -15,8 +15,7 @@ FROM debian:bullseye
 COPY 		tools/ .
 COPY 		${DOCKER_CONFIG_FILE} .
 
-RUN 		apk add --no-cache gettext && \
-			export $(cat ${DOCKER_CONFIG_FILE} | xargs) && \
+RUN 		export $(cat ${DOCKER_CONFIG_FILE} | xargs) && \
 			envsubst $(cat ${DOCKER_CONFIG_FILE} | awk '{print $1}' | cut -d '=' -f1 | sed 's/^/$/' | paste -sd, - | sed "s/^/'/" | sed "s/$/'/") \
 			< tools/nginx_template.conf > nginx.conf && \
 			rm -f ${DOCKER_CONFIG_FILE}

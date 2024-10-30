@@ -21,12 +21,14 @@ services:
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
+      args:
+        DOCKER_CONFIG_FILE: ${DOCKER_CONFIG_FILE}
     image: nginx_image
-    ports: "${PORT_FORWARD_TLS_HOST_TO_NGINX}:${PORT_LISTEN_TLS_NGINX}"
+    ports:
+      - "${PORT_FORWARD_TLS_HOST_TO_NGINX}:${PORT_LISTEN_TLS_NGINX}"
     networks:
       - inception_network
-    args:
-      DOCKER_CONFIG_FILE: ${DOCKER_CONFIG_FILE}
+
 
 
   mariadb:
@@ -35,21 +37,23 @@ services:
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
+      args:
+        DOCKER_CONFIG_FILE: ${DOCKER_CONFIG_FILE}      
     image: mariadb_image
     environment:
       MYSQL_USER_FILE: /run/secrets/db_user
       MYSQL_PASSWORD_FILE: /run/secrets/db_password
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
 
-    expose: ${PORT_LISTEN_MARIADB}
+    expose:
+      - ${PORT_LISTEN_MARIADB}
     networks:
       - inception_network
     secrets:
       - db_user
       - db_password
       - db_root_password
-    args:
-      DOCKER_CONFIG_FILE: ${DOCKER_CONFIG_FILE}
+
 
   wordpress:
     <<: *config
@@ -57,12 +61,14 @@ services:
     build:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
+      args:
+        DOCKER_CONFIG_FILE: ${DOCKER_CONFIG_FILE}
     image: wordpress_image
-    expose: ${PORT_LISTEN_WORDPRESS}
+    expose: 
+      - ${PORT_LISTEN_WORDPRESS}
     networks:
       - inception_network
-    args:
-      DOCKER_CONFIG_FILE: ${DOCKER_CONFIG_FILE}
+
       
 networks:
   inception_network:
