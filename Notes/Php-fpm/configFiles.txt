@@ -6,23 +6,23 @@
 #    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/31 18:17:45 by mmaria-d          #+#    #+#              #
-#    Updated: 2024/10/31 18:31:42 by mmaria-d         ###   ########.fr        #
+#    Updated: 2024/10/31 18:39:09 by mmaria-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-[www]                                           <- pool name
-user = www-data
-group = www-data
+[inception]                                           <- pool name
+user = www-inception-data
+group = www-inception-data
 listen = 0.0.0.0:${PORT_LISTEN_WORDPRESS}
-listen.owner = www-data
-listen.group = www-data
-listen.mode = 0660
-pm = dynamic
-pm.max_children = 5
+listen.owner = www-inception-data
+listen.group = www-inception-data
+listen.mode = 0660                                      <- permissions to access the lsitening socket file
+pm = dynamic                                            <- variable number of processes depending on load and idle
+pm.max_children = 5                                     <- this and below concern child processes, max, start, min idle, max idle
 pm.start_servers = 2
 pm.min_spare_servers = 1
 pm.max_spare_servers = 3
-php_admin_value[error_log] = /var/log/php7.x-fpm.log
+php_admin_value[error_log] = /var/log/php7.x-fpm.log    <- log file, substitute with correct version
 php_admin_flag[log_errors] = on
 
 
@@ -40,20 +40,7 @@ pools:
     but if i were to analyse traffic i would have to segregate and allocate more child processes and workers
     to "hotter" pages, like index for instance
 
-[inception]                                           <- pool name
-user = www-inception-data
-group = www-inception-data
-listen = 0.0.0.0:${PORT_LISTEN_WORDPRESS}
-listen.owner = www-inception-data
-listen.group = www-inception-data
-listen.mode = 0660                                      <- permissions to access the lsitening socket file
-pm = dynamic
-pm.max_children = 5                                     <- this and below concern child processes, max, start, min idle, max idle
-pm.start_servers = 2
-pm.min_spare_servers = 1
-pm.max_spare_servers = 3
-php_admin_value[error_log] = /var/log/php7.x-fpm.log    <- log file
-php_admin_flag[log_errors] = on
+
 
 getting the php version
 # php -v | head -n 1 | cut -d ' ' -f 2 | cut -d '.' -f -2
