@@ -13,18 +13,27 @@
 SRCS_DIR 			= 	srcs
 SECRETS_DIR			= 	secrets
 
+# image build directories
 BUILD_DIR			= 	$(SRCS_DIR)/requirements
 NGINX_DIR 			= 	$(BUILD_DIR)/nginx
 MARIADB_DIR 		= 	$(BUILD_DIR)/mariadb
 WORDPRESS_DIR 		= 	$(BUILD_DIR)/wordpress
 
+# volume mount directories
+VOLUME_MOUNT		= 	/home/manuel/dockerVolume
+WORDPRESS_VOLUME	= 	$(VOLUME_MOUNT)/wordpress
+MARIADB_VOLUME		= 	$(VOLUME_MOUNT)/mariadb
 
+
+# config files
 CONFIG_FILE 		= 	config.env
 CONFIG_PATH			= 	$(SRCS_DIR)/$(CONFIG_FILE)
 
+# compose files
 COMPOSE_FILE		= 	docker-compose.yaml
 COMPOSE_PATH		= 	$(SRCS_DIR)/$(COMPOSE_FILE)
 
+# file descrimination 
 SECRETS_FILES		= 	$(SECRETS_DIR)/credentials.txt				 	\
 					  	$(SECRETS_DIR)/db_password.txt					\
 					  	$(SECRETS_DIR)/db_root_password.txt 			\
@@ -42,6 +51,8 @@ all: $(CONFIG_PATH) $(SECRETS_FILES) $(NGINX_FILES) $(MARIADB_FILES) $(WORDPRESS
 	@cp $(CONFIG_PATH) $(NGINX_DIR)
 	@cp $(CONFIG_PATH) $(MARIADB_DIR)
 	@cp $(CONFIG_PATH) $(WORDPRESS_DIR)
+	@mkdir -p $(WORDPRESS_VOLUME)
+	@mkdir -p $(MARIADB_VOLUME)
 
 	docker compose -f $(COMPOSE_PATH) --env-file $(CONFIG_PATH) up --build
 
@@ -60,6 +71,8 @@ fclean: clean
 	yes | docker builder prune -a -f
 	yes | docker network prune -f
 	yes | docker volume prune -f
+	rm -rf $(WORDPRESS_VOLUME)
+	rm -rf $(MARIADB_VOLUME)
 
 re: fclean all
 

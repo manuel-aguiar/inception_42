@@ -31,6 +31,8 @@ services:
 
     restart: always
 
+    volumes:
+      - wordpress_volume:/var/www/html
 
 
   mariadb:
@@ -57,7 +59,8 @@ services:
       - db_root_password
     
     restart: always
-
+    volumes:
+      - mariadb_volume:/var/lib/mysql
 
   wordpress:
     <<: *config
@@ -75,9 +78,12 @@ services:
     
     restart: always
 
+    volumes:
+      - wordpress_volume:/var/www/html
       
 networks:
   inception_network:
+    name: inception_network
     driver: bridge
 
 
@@ -90,7 +96,19 @@ secrets:
     file: ../secrets/db_user.txt
 
 volumes:
-  wordpress_data:
 
+  mariadb_volume:
+    name: mariadb_volume
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/manuel/dockerVolume/mariadb
+      o: 'bind'
 
-  mariadb_data:
+  wordpress_volume:
+    name: wordpress_volume
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/manuel/dockerVolume/wordpress
+      o: 'bind'

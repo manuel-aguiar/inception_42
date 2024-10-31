@@ -1,0 +1,29 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    volumes.txt                                        :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/31 17:10:13 by mmaria-d          #+#    #+#              #
+#    Updated: 2024/10/31 17:19:52 by mmaria-d         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+Volumes in docker serve essentially permanent file systems whose life time
+goes beyond that of the container's file system.
+
+So if a container gets shut down or destroyed/replaced, this "volume" may be
+attached to it to keep working when the container gets up again / a new replacement container
+connected to it gets up
+
+if two container uses a remote volume, one needs a network file system (NFS) server
+running where those files are such that the container can connect to it. the nfs server
+would then send the files to the container as needed
+
+docker volume ls -> list all volumes
+
+docker ps -q | xargs docker inspect --format '{{ .Name }}: {{ range .Mounts }}{{ .Name }} {{ end }}'
+
+(man docker-volume-create)
+    you can create free volumes and connect them later
