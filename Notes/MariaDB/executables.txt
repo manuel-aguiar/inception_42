@@ -6,7 +6,7 @@
 #    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/30 16:40:48 by mmaria-d          #+#    #+#              #
-#    Updated: 2024/10/31 15:31:16 by mmaria-d         ###   ########.fr        #
+#    Updated: 2024/10/31 16:10:34 by mmaria-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,24 @@ mysqld_safe -> daemon of the MariaDB server
 
     same as mariadbd-safe
 
+mysql_secure_installation (same as mariadb-secure-installation, symlink)
+
+############################################
+
+mariadb-secure-installation - improve MariaDB installation security (mysql_secure_installation is now a symlink to mariadb-secure-installation)
+
+Steps of the program:
+
+    current password for root
+    switch to unix socket authentication (local use)
+    define password for root
+    disallow root to login remotely (so you ssh into the machine and only then log on the server as root)
+    reload previlige table
+    all done
+
+    So we can replicate precisely this in our script to install all correctly
+
+########################
 
 mariadb -u root (user root)
     -> login to the mariadb SERVER as root
