@@ -3,12 +3,27 @@
 #                                                         :::      ::::::::    #
 #    MariaDB.txt                                        :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
+#    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/25 10:05:39 by marvin            #+#    #+#              #
-#    Updated: 2024/10/29 09:24:16 by codespace        ###   ########.fr        #
+#    Updated: 2024/10/31 18:46:16 by mmaria-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+MariaDB -> a fork of MySQL
+
+MariaDB Server -> software that manages the database filesystem MariaDB.
+It is a server, meaning you can connect to it to obtain queries
+Has an epoll/kqueue/select of its own to manage events and connections.
+
+
+In our setup, it is the php scripts when interpreted that open connections to the
+database server to request/post information. It is not the responsibility
+of php-fpm binary to handle those connections -> it only executes the scripts that do so.
+(Ok, so it is the php-fpm PROCESS that opens the connections, but such is not embedded
+in the php-fpm source, that logic is in the scripts themselves, as php-fpm only acts as an interpreter)
+
+#####################################################################
 
 Server that serves as an interpreter of SQL queries sent to it. It is the Server
 that is responsible for setting a listening socket for receiving connections.

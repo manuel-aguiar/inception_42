@@ -6,9 +6,11 @@
 #    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/25 08:38:47 by codespace         #+#    #+#              #
-#    Updated: 2024/10/31 08:57:03 by mmaria-d         ###   ########.fr        #
+#    Updated: 2024/10/31 18:45:13 by mmaria-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+Structured Query Language
 
 https://www.mariadbtutorial.com/
 

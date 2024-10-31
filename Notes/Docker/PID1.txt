@@ -20,3 +20,8 @@ webservers, databases)
 
 systemd is itself a daemon, for instance
 cron is also a daemon
+
+
+when we run docker, whatever is in entrypoint will be the PID1
+when it ends, it exits, so the container must be kept alive
+since all containers run servers, no problem, they will be alive as long as needed (or crash :0 )
