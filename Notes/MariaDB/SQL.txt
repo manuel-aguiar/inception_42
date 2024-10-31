@@ -6,7 +6,7 @@
 #    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/25 08:38:47 by codespace         #+#    #+#              #
-#    Updated: 2024/10/31 07:39:14 by mmaria-d         ###   ########.fr        #
+#    Updated: 2024/10/31 08:25:25 by mmaria-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,3 +15,26 @@ https://www.mariadbtutorial.com/
 select name from countries:
     the FROM statement is evaluated before the SELECT statement
     however, the syntax doesn't allow the other way around
+
+select name 
+    -> from countries
+    -> order by
+    -> name desc
+    -> ;
++----------------------------------------------+
+| name                                         |
++----------------------------------------------+
+| Zimbabwe                                     |
+| Zambia                                       |
+| Yugoslavia                                   |
+| Yemen                                        |
+| Western Sahara                               |
+
+[...]
+
+select name from countries
+    -> order by
+    -> region_id,
+    -> name;
+
+first it sorts by region_id and then by name (so it gets grouped into continents, effectively)

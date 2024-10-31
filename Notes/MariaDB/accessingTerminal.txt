@@ -1,0 +1,30 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    accessingTerminal.txt                              :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/31 08:16:59 by mmaria-d          #+#    #+#              #
+#    Updated: 2024/10/31 08:21:37 by mmaria-d         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+for example, to clear the screen, one can access the terminals functions by appending "system"
+
+for instance:
+    system clear
+        -> clears the terminal by calling clear from the external shell
+
+
+MariaDB [nation]> system ls
+DockerTest  gitcommit.sh  inception.pdf  installDocker.sh  Notes  Project  README.md  VM
+
+so essentially forks a terminal, runs the command
+
+pwd is builtin, so it must be a terminal that is forked and not really the executable (clear or ls)
+
+MariaDB [nation]> system ls | wc -l
+8
+
+forks a terminal that the forks ls and wc -l, and then exits

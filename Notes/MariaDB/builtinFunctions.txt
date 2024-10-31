@@ -1,0 +1,43 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    builtinFunctions.txt                               :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/31 08:04:09 by mmaria-d          #+#    #+#              #
+#    Updated: 2024/10/31 08:16:02 by mmaria-d         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+select now();
+        now(), date and time stamp; 
+        
+select count(*) from countries;
+min, max, sum.....
+
+rand() -> random floating point number between 0 and 1
+
+select floor (3.3); select ceil (3.3); -> yield 3 and 4
+
+select if (1 = 1, 'potato', 'banana'); -> control flow, yields 'potato'
+
+
+
+switch statements
+select case
+    -> when name = 'Portugal' then 'yes'
+    -> else 'no'
+    -> end
+    -> from countries;
+
+select name, case when name = 'Portugal' then 'yes' else 'no' end as trololol from countries;
++----------------------------------------------+----------+
+| name                                         | trololol |
++----------------------------------------------+----------+
+| Aruba                                        | no       |
+| Afghanistan                                  | no       |
+
+[...]
+
+as defines an alias whose lifetime is the query itself when generating a table
