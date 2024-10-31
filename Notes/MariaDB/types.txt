@@ -1,0 +1,34 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    types.txt                                          :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/31 07:41:53 by mmaria-d          #+#    #+#              #
+#    Updated: 2024/10/31 07:49:13 by mmaria-d         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+https://www.mariadbtutorial.com/mariadb-basics/mariadb-data-types/
+
+show columns from countries;
+
++---------------+---------------+------+-----+---------+----------------+
+| Field         | Type          | Null | Key | Default | Extra          |
++---------------+---------------+------+-----+---------+----------------+
+| country_id    | int(11)       | NO   | PRI | NULL    | auto_increment |
+| name          | varchar(50)   | YES  |     | NULL    |                |
+| area          | decimal(10,2) | NO   |     | NULL    |                |
+| national_day  | date          | YES  |     | NULL    |                |
+| country_code2 | char(2)       | NO   | UNI | NULL    |                |
+| country_code3 | char(3)       | NO   | UNI | NULL    |                |
+| region_id     | int(11)       | NO   | MUL | NULL    |                |
++---------------+---------------+------+-----+---------+----------------+
+
+int(11) -> an integer (4 bytes) and the field displays up to 11 characters (INT_MIN)
+varchar(50) -> character array of variable size, up to 50 characters maximum
+char(2) -> character array of exactly 2 characters (bytes)
+decimal(10,2) -> decimal number with 10 digits, of which two are after the decimal point
+    -> it is an implementation of fixed point numbers
+date -> stores dates with no time stamp, takes 3 bytes

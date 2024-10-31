@@ -1,17 +1,17 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    SQL.txt                                            :+:      :+:    :+:    #
+#    typesCustom.txt                                    :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/10/25 08:38:47 by codespace         #+#    #+#              #
-#    Updated: 2024/10/31 07:39:14 by mmaria-d         ###   ########.fr        #
+#    Created: 2024/10/31 07:51:56 by mmaria-d          #+#    #+#              #
+#    Updated: 2024/10/31 07:52:13 by mmaria-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-https://www.mariadbtutorial.com/
+chadgipity
 
-select name from countries:
-    the FROM statement is evaluated before the SELECT statement
-    however, the syntax doesn't allow the other way around
+CREATE DOMAIN email_type AS VARCHAR(255) CHECK (VALUE ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$');
+
+what is this syntax

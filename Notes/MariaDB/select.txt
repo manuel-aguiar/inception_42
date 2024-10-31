@@ -1,17 +1,19 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    SQL.txt                                            :+:      :+:    :+:    #
+#    select.txt                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/10/25 08:38:47 by codespace         #+#    #+#              #
-#    Updated: 2024/10/31 07:39:14 by mmaria-d         ###   ########.fr        #
+#    Created: 2024/10/31 07:59:05 by mmaria-d          #+#    #+#              #
+#    Updated: 2024/10/31 08:01:54 by mmaria-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-https://www.mariadbtutorial.com/
+select
 
-select name from countries:
-    the FROM statement is evaluated before the SELECT statement
-    however, the syntax doesn't allow the other way around
+get data from a table in a database.
+
+select name from countries; -> column "name" from the table "countries"
+select * from countries; -> select all columns from countries
+select count* from countries; -> DOESN'T WORK, it does not take wildcards like this
