@@ -6,7 +6,7 @@
 #    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/31 08:59:14 by mmaria-d          #+#    #+#              #
-#    Updated: 2024/10/31 10:50:32 by mmaria-d         ###   ########.fr        #
+#    Updated: 2024/10/31 14:15:35 by mmaria-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,3 +84,6 @@ default [value] -> if a value is not provided for this entry, [value] will be us
 
     delete from contacts where first_name like 'y%';
         -> deletes ya man bro;
+
+    update contacts set contact_group = 'bff' where first_name = 'jose';
+        -> updates all that meet criteria

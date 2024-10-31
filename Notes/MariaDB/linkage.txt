@@ -1,0 +1,14 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    linkage.txt                                        :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/31 14:41:58 by mmaria-d          #+#    #+#              #
+#    Updated: 2024/10/31 14:42:40 by mmaria-d         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+Keys -> primary key (unique row identifier)
+    -> foreign key (a pointer to a primary key in another table)

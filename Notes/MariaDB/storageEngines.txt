@@ -1,0 +1,19 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    storageEngines.txt                                 :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/31 14:34:00 by mmaria-d          #+#    #+#              #
+#    Updated: 2024/10/31 14:44:45 by mmaria-d         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+Storage engines are the parts of the program that are responsible for managing
+the database file on disk, indexing, caching, etc...
+
+Engines are PER TABLE : CREATE TABLE cenas () engine=[engine name]
+
+Engines, despite their names, are all embedded in mariadb's executable, it doesn't
+fork+execv to call a program to manage a specific query on a specific table (super inefficient)

@@ -1,0 +1,100 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    join.txt                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/31 14:14:58 by mmaria-d          #+#    #+#              #
+#    Updated: 2024/10/31 14:33:49 by mmaria-d         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+https://www.mariadbtutorial.com/mariadb-basics/mariadb-join/
+
+mariadb supports inner join, left join, cross join, outter join
+
+select 
+    g.guest_id, 
+    g.name, 
+    v.vip_id, 
+    v.name
+from guests g
+inner join vips v using (name);
+# inner join vips v on g.name = v.name
+
+
+joining guest and vip tables, and setting alliases for both guests (g) and vips (v)
+
+inner join -> compares each table's rows
+
+using: when the comparison columns has the same name on both tables
+
+#######################
+
+select      g.guest_id,      g.name,      v.vip_id,      v.name from guests g left join vips v on g.name = v.name;
++----------+-------+--------+------+
+| guest_id | name  | vip_id | name |
++----------+-------+--------+------+
+|        2 | Jane  |      1 | Jane |
+|        1 | John  |      3 | John |
+|        3 | Jean  |   NULL | NULL |
+|        4 | Storm |   NULL | NULL |
+|        5 | Beast |   NULL | NULL |
++----------+-------+--------+------+
+
+
+left join -> takes the left table and adds the columns from the right table to those that match (NULL the others)
+
+###############################
+
+MariaDB [nation]> select      g.guest_id,      g.name,      v.vip_id,      v.name from guests g right join vips v on g.name = v.name;
++----------+------+--------+-----------+
+| guest_id | name | vip_id | name      |
++----------+------+--------+-----------+
+|        1 | John |      3 | John      |
+|        2 | Jane |      1 | Jane      |
+|     NULL | NULL |      2 | Charles   |
+|     NULL | NULL |      4 | Wolverine |
+|     NULL | NULL |      5 | Rogue     |
++----------+------+--------+-----------+
+
+right join -> reverse of the left join
+
+
+
+################
+
+MariaDB [nation]> select      g.guest_id,      g.name,      v.vip_id,      v.name from guests g cross join vips v;
++----------+-------+--------+-----------+
+| guest_id | name  | vip_id | name      |
++----------+-------+--------+-----------+
+|        1 | John  |      1 | Jane      |
+|        2 | Jane  |      1 | Jane      |
+|        3 | Jean  |      1 | Jane      |
+|        4 | Storm |      1 | Jane      |
+|        5 | Beast |      1 | Jane      |
+|        1 | John  |      2 | Charles   |
+|        2 | Jane  |      2 | Charles   |
+|        3 | Jean  |      2 | Charles   |
+|        4 | Storm |      2 | Charles   |
+|        5 | Beast |      2 | Charles   |
+|        1 | John  |      3 | John      |
+|        2 | Jane  |      3 | John      |
+|        3 | Jean  |      3 | John      |
+|        4 | Storm |      3 | John      |
+|        5 | Beast |      3 | John      |
+|        1 | John  |      4 | Wolverine |
+|        2 | Jane  |      4 | Wolverine |
+|        3 | Jean  |      4 | Wolverine |
+|        4 | Storm |      4 | Wolverine |
+|        5 | Beast |      4 | Wolverine |
+|        1 | John  |      5 | Rogue     |
+|        2 | Jane  |      5 | Rogue     |
+|        3 | Jean  |      5 | Rogue     |
+|        4 | Storm |      5 | Rogue     |
+|        5 | Beast |      5 | Rogue     |
++----------+-------+--------+-----------+
+
+cross join -> all combinations between two pairs (5x5 tables, 25 pairs)
+        -> i'm not sure about the usage lol other than combos
