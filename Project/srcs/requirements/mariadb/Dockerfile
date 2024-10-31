@@ -12,8 +12,18 @@
 
 #FROM alpine:3.19
 
-FROM debian:bullseye
+FROM            debian:bullseye
 
-RUN     apt-get update -y && \
-        apt-get upgrade -y && \
-        apt-get install mariadb-server -y
+RUN             apt-get update -y && \
+                apt-get upgrade -y && \
+                apt-get install mariadb-server -y
+
+COPY            tools/runMariaDB.sh .
+
+RUN             chmod +x runMariaDB.sh
+
+STOPSIGNAL      SIGQUIT
+
+WORKDIR        /var/lib/mysql
+
+ENTRYPOINT     ["./runMariaDB.sh"]

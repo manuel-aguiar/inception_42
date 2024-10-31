@@ -6,21 +6,87 @@
 #    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/30 16:40:48 by mmaria-d          #+#    #+#              #
-#    Updated: 2024/10/30 16:48:46 by mmaria-d         ###   ########.fr        #
+#    Updated: 2024/10/31 15:31:16 by mmaria-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-mysql -> command line interface to interact with the MariaDB database
+mysql -> MariaDB client (CLI interface to communicate with the server)
 
     same as mariadb
+
+    attempts to connect via unix socket to the daemon installed and running in the computer
+    Lots of options, can pass a host and a port to attempt a remote connection, etcetcetc
+
+##############################
 
 mysqld -> daemon of the MariaDB server
     -> main program that accesses the directory that contains databases and tables (log files, etc)
 
     same as mariadbd
 
+    we don't actually call the daemon, once installed it will be running from boot and listening
+    we can do health checks to confirm the daemon is running
+
+########################################
+
 mysqld_safe -> daemon of the MariaDB server
     -> same as above, it is how the server is started. This executable is recommended
     for startup as it addresses some security concerns with the old executable
 
     same as mariadbd-safe
+
+
+mariadb -u root (user root)
+    -> login to the mariadb SERVER as root
+
+    -> logins are done to the mariadb server. access to individual databases is done based on permissions
+        permissions must be attributed to each
+    so the server has an admin, and databases should have their own admins
+
+    -e 
+        execute statements from the command line without actually entering the mariadb shell
+
+
+mnascime:
+
+    	mariadb -u root -e "
+        CREATE DATABASE IF NOT EXISTS $SQL_DB;
+        CREATE USER IF NOT EXISTS '$SQL_USER'@'%' IDENTIFIED BY '$SQL_PASS';
+        GRANT ALL PRIVILEGES ON $SQL_DB.* TO '$SQL_USER'@'%';
+        ALTER USER 'root'@'localhost' IDENTIFIED BY '$ROOTPASS';
+        FLUSH PRIVILEGES;
+        SHUTDOWN;"
+
+login as root (no password asked it is the first login)
+execute the following statement right here and exit the shell immediately:
+
+    create a database 
+    create a user and a password
+    all permissions on this database are given to this user
+    change the root user, in this case to add a password
+    force the recognition of previleges in this session
+    safely stop the mariadb server
+
+
+    Force recognition must be done because the server is still running when we exit the client
+    However, since this execution includes creation of users, possibly the server
+    will refresh anyways. Doesn't bother to leave it there in any case.
+
+
+
+
+SHUTDOWN:
+
+    MariaDB [nation]> shutdown
+        -> ;
+    Query OK, 0 rows affected (0,001 sec)
+
+    MariaDB [nation]> select * from nation.countries
+        -> ;
+    ERROR 2006 (HY000): Server has gone away
+    No connection. Trying to reconnect...
+    ERROR 2002 (HY000): Can't connect to local server through socket '/run/mysqld/mysqld.sock' (2)
+    ERROR: Can't connect to the server
+
+    we actually downed the daemon, so there is nothing for this client to connect to.
+    must exit the client(useless, conection is down anyways, socket is closed)

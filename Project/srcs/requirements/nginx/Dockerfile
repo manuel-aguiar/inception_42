@@ -21,7 +21,7 @@ COPY 		tools/ /app/tools/
 
 COPY 		${DOCKER_CONFIG_FILE} /app/tools/ 
 
-WORKDIR /app/tools
+WORKDIR 	/app/tools
 
 RUN 		apt-get update -y && \
 			apt-get install gettext nginx openssl -y && \
