@@ -1,0 +1,86 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    table.txt                                          :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/31 08:59:14 by mmaria-d          #+#    #+#              #
+#    Updated: 2024/10/31 10:50:32 by mmaria-d         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+MariaDB [test]> create table contacts(
+    ->     id int auto_increment,
+    ->     first_name varchar(50) not null,
+    ->     last_name varchar(50) not null,
+    ->     full_name varchar(101) 
+    ->         as (concat(first_name, ' ', last_name)) virtual,
+    ->     phone varchar(100),
+    ->     contact_group varchar(50) default 'General',
+    ->     primary key(id)
+    -> );
+
+MariaDB [test]> show columns from contacts
+    -> ;
++---------------+--------------+------+-----+---------+-------------------+
+| Field         | Type         | Null | Key | Default | Extra             |
++---------------+--------------+------+-----+---------+-------------------+
+| id            | int(11)      | NO   | PRI | NULL    | auto_increment    |
+| first_name    | varchar(50)  | NO   |     | NULL    |                   |
+| last_name     | varchar(50)  | NO   |     | NULL    |                   |
+| full_name     | varchar(101) | YES  |     | NULL    | VIRTUAL GENERATED |
+| phone         | varchar(100) | YES  |     | NULL    |                   |
+| contact_group | varchar(50)  | YES  |     | General |                   |
+
+#######################################
+
+create table [name] -> creates a new table inside the database (must have at least 1 column)
+drop tabel [name] -> deletes a table
+
+
+auto_increment -> when inserting a new entry, if id is not specified,
+            mariadb will automatically set this to the last + 1;
+            (i assume auto_decrement also exists...?)
+
+not null -> when inserting an entry to the table, the caller must provide a value for this parameter
+
+    when inserting, you first specify which parameters you are going to input:
+
+    insert into contacts(first_name, last_name, phone)
+    values ('antonio', 'jose', '123')
+
+    that's why there is no problem with default values, you must explicitely specify the match
+    
+    MariaDB [test]> select last_insert_id();  -> a function to get the id of the last entry
+        -> if multiple
+    +------------------+
+    | last_insert_id() |
+    +------------------+
+    |                1 |
+    +------------------+
+
+
+virtual -> the column is calculated from two other columns, so the in this case it doesn't
+    result in extra storage space. when a user asks for the column, the mariddb creates the entry at runtime
+    to show the user
+
+    So, small extra runtime cost but saves storage space
+
+default [value] -> if a value is not provided for this entry, [value] will be used to fill it
+
+    insert into contacts(first_name, last_name, phone, contact_group)
+        -> values('Roberto','carlos','(408)-242-3845',default);
+    
+    'default' can be explicitely pass to the function
+
+
+    insert multiple entries into the database's table
+    insert into contacts(first_name, last_name, phone) 
+        values
+            ('ya', 'man', 'bro'),
+            ('cenas', 'coisas', 'yoyo')
+    ;
+
+    delete from contacts where first_name like 'y%';
+        -> deletes ya man bro;

@@ -6,7 +6,7 @@
 #    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/25 08:38:47 by codespace         #+#    #+#              #
-#    Updated: 2024/10/31 08:25:25 by mmaria-d         ###   ########.fr        #
+#    Updated: 2024/10/31 08:57:03 by mmaria-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,3 +38,131 @@ select name from countries
     -> name;
 
 first it sorts by region_id and then by name (so it gets grouped into continents, effectively)
+
+####################################
+
+
+pattern matching, % works like the wildcard character '*'
+
+    parameter LIKE is case insensitive
+    '_' means a wildcard single character
+    '%' means a wildcard any amount of characters
+
+    select name from countries where name like 'P%'
+        -> ;
+    +------------------+
+    | name             |
+    +------------------+
+    | Pakistan         |
+    | Panama           |
+
+    MariaDB [nation]> select name from countries where name like '%l';
+    +----------+
+    | name     |
+    +----------+
+    | Brazil   |
+    | Israel   |
+    | Nepal    |
+
+    MariaDB [nation]> select name from countries where name like 'P%g%l';
+    +----------+
+    | name     |
+    +----------+
+    | Portugal |
+    +----------+
+
+    MariaDB [nation]> select name from countries where name like '%'
+        -> ;
+    +----------------------------------------------+
+    | name                                         |
+    +----------------------------------------------+
+    | Aruba                                        |
+    | Afghanistan                                  |
+    | Angola                                       |
+
+
+    find countries whose name contains at least one 'l' character
+    MariaDB [nation]> select name from countries where name like '%l%'
+        -> ;
+    +----------------------------------------------+
+    | name                                         |
+    +----------------------------------------------+
+    | Angola                                       |
+    | Anguilla                                     |
+    | Albania                                      |
+
+
+    in the syntax, '\' is provided if one wants to search for a character or expression
+    that contains the wildcard characters themselves
+
+    select 'V_2019' like '%\_20%';
+    select 'V_2019' like '%#_20%' escape '#';
+
+
+IN, AND, OR, NOT
+
+select name from countries where region_id in (1,2,3);
++--------------------------------------+
+| name                                 |
++--------------------------------------+
+| Aruba                                |
+
+##############################################
+
+nested queries to form lists to be checked with the IN statement
+filter countries that are located in europe
+
+select name, region_id
+    -> from countries
+    -> where region_id in
+    -> (select region_id from regions where name like '%Europe%')
+    -> order by name, region_id
+    -> ;
++-------------------------------+-----------+
+| name                          | region_id |
++-------------------------------+-----------+
+| Albania                       |         4 |
+| Andorra                       |         4 |
+| Austria                       |        10 |
+| Belarus                       |        13 |
+| Belgium                       |        10 |
+| Bosnia and Herzegovina        |         4 |
+| Bulgaria                      |        13 |
+
+#############################################
+
+DISTINCT, BETWEEN
+
+    MariaDB [nation]> select 
+        ->     distinct year 
+        -> from 
+        ->     country_stats
+        -> order by   
+        ->     year desc;
+    +------+
+    | year |
+    +------+
+    | 2018 |
+    | 2017 |
+    | 2016 |
+
+###################################################
+
+limit
+
+MariaDB [nation]> select    distinct year from country_stats order by year desc limit 10
+    -> ;
++------+
+| year |
++------+
+| 2018 |
+| 2017 |
+| 2016 |
+| 2015 |
+| 2014 |
+| 2013 |
+| 2012 |
+| 2011 |
+| 2010 |
+| 2009 |
++------+

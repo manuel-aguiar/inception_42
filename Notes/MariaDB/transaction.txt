@@ -1,0 +1,24 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    transaction.txt                                    :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/31 10:46:00 by mmaria-d          #+#    #+#              #
+#    Updated: 2024/10/31 10:47:49 by mmaria-d         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+transactions serve as a fallback mechanism for making changes to databases
+
+start transaction
+
+    [do your stuff]
+
+rollback -> disregard the changes to be made to the point where the transaction started
+
+commit -> keep the changes to be made after the transaction started
+
+
+MOST DB COMMANDS DO NOT HAVE A FALLBACK, TRANSACTIONS SERVE TO AVOID STUPID MISTAKES
