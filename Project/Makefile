@@ -98,9 +98,9 @@ fclean: clean
 	docker rm -f mariadb_container || true
 	docker rm -f wordpress_container || true
 	docker rm -f nginx_container || true
-	docker rmi -f mariadb_image || true
-	docker rmi -f wordpress_image || true
-	docker rmi -f nginx_image || true
+	docker rmi -f mariadb || true
+	docker rmi -f wordpress || true
+	docker rmi -f nginx || true
 	docker volume rm -f mariadb_volume || true
 	docker volume rm -f wordpress_volume || true
 

@@ -24,7 +24,7 @@ services:
       context: ./requirements/nginx
       dockerfile: Dockerfile
 
-    image: nginx_image
+    image: nginx
 
     environment:
       SELF_SIGNED_CERT: /run/secrets/self_signed_cert
@@ -53,7 +53,7 @@ services:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
 
-    image: mariadb_image
+    image: mariadb
     environment:
       MYSQL_DB_NAME_FILE: /run/secrets/db_name
       MYSQL_USER_FILE: /run/secrets/db_user
@@ -85,7 +85,7 @@ services:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
 
-    image: wordpress_image
+    image: wordpress
     expose:
       - ${PORT_LISTEN_PHP}
     networks:
