@@ -22,8 +22,7 @@ services:
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
-      args:
-        DOCKER_CONFIG_FILE: ${DOCKER_CONFIG_FILE}
+
     image: nginx_image
 
     environment:
@@ -40,7 +39,6 @@ services:
       - self_signed_cert
       - self_signed_key
 
-
     volumes:
       - ./requirements/nginx/tools/nginx.conf:/etc/nginx/nginx.conf
       - wordpress_volume:/var/www/html
@@ -53,8 +51,7 @@ services:
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
-      args:
-        DOCKER_CONFIG_FILE: ${DOCKER_CONFIG_FILE}
+
     image: mariadb_image
     environment:
       MYSQL_DATABASE_FILE: /run/secrets/db_name
@@ -83,8 +80,7 @@ services:
     build:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
-      args:
-        DOCKER_CONFIG_FILE: ${DOCKER_CONFIG_FILE}
+
     image: wordpress_image
     expose:
       - ${PORT_LISTEN_PHP}
@@ -132,7 +128,6 @@ secrets:
     file: ../secrets/certificates/nginx-selfsigned.crt
   self_signed_key:
     file: ../secrets/certificates/nginx-selfsigned.key
-
   db_password:
     file: ../secrets/db_password.txt
   db_root_password:

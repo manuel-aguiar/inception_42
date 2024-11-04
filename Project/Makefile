@@ -95,6 +95,7 @@ clean:
 	rm -rf $(CERTIFICATES_DIR)
 	rm -rf $(WORDPRESS_VOLUME)
 	rm -rf $(MARIADB_VOLUME)
+
 fclean: clean
 	yes | docker system prune -a -f
 	yes | docker image prune -a -f
