@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    configFiles.txt                                    :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
+#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/31 18:17:45 by mmaria-d          #+#    #+#              #
-#    Updated: 2024/10/31 18:39:09 by mmaria-d         ###   ########.fr        #
+#    Updated: 2024/11/04 10:11:44 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 [inception]                                           <- pool name
 user = www-inception-data
 group = www-inception-data
-listen = 0.0.0.0:${PORT_LISTEN_WORDPRESS}
+listen = 0.0.0.0:${PORT_LISTEN_PHP}
 listen.owner = www-inception-data
 listen.group = www-inception-data
 listen.mode = 0660                                      <- permissions to access the lsitening socket file
@@ -35,7 +35,7 @@ pools:
     and tell it to forward fastcgi to that particular socket or port
         (port must be different between pools, otherwise there is conflict of data......)
         (or different unix sockets, like php-default.sock and php-hot.sock, etc)
-    
+
     in my case, i'll make my life easy and have a single entry point for the whole website
     but if i were to analyse traffic i would have to segregate and allocate more child processes and workers
     to "hotter" pages, like index for instance

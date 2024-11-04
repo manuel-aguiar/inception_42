@@ -18,6 +18,7 @@ services:
   nginx:
     <<: *config
     container_name: nginx_container
+    hostname: ${HOSTNAME_HTTPS}
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
@@ -25,7 +26,7 @@ services:
         DOCKER_CONFIG_FILE: ${DOCKER_CONFIG_FILE}
     image: nginx_image
     ports:
-      - "${PORT_FORWARD_TLS_HOST_TO_NGINX}:${PORT_LISTEN_TLS_NGINX}"
+      - "${PORT_FORWARD_HTTPS_HOST_TO_LOCAL}:${PORT_LISTEN_HTTPS}"
     networks:
       - inception_network
 
@@ -38,26 +39,29 @@ services:
   mariadb:
     <<: *config
     container_name: mariadb_container
+    hostname: ${HOSTNAME_DB}
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
       args:
-        DOCKER_CONFIG_FILE: ${DOCKER_CONFIG_FILE}      
+        DOCKER_CONFIG_FILE: ${DOCKER_CONFIG_FILE}
     image: mariadb_image
     environment:
+      MYSQL_DATABASE_FILE: /run/secrets/db_name
       MYSQL_USER_FILE: /run/secrets/db_user
       MYSQL_PASSWORD_FILE: /run/secrets/db_password
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
 
     expose:
-      - ${PORT_LISTEN_MARIADB}
+      - ${PORT_LISTEN_DATABASE}
     networks:
       - inception_network
     secrets:
+      - db_name
       - db_user
       - db_password
       - db_root_password
-    
+
     restart: always
     volumes:
       - mariadb_volume:/var/lib/mysql
@@ -65,22 +69,47 @@ services:
   wordpress:
     <<: *config
     container_name: wordpress_container
+    hostname: ${HOSTNAME_PHP}
     build:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
       args:
         DOCKER_CONFIG_FILE: ${DOCKER_CONFIG_FILE}
     image: wordpress_image
-    expose: 
-      - ${PORT_LISTEN_WORDPRESS}
+    expose:
+      - ${PORT_LISTEN_PHP}
     networks:
       - inception_network
-    
+
     restart: always
+
+    environment:
+      MYSQL_DATABASE_FILE: /run/secrets/db_name
+      MYSQL_USER_FILE: /run/secrets/db_user
+      MYSQL_PASSWORD_FILE: /run/secrets/db_password
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+      WP_ADMIN_USER_FILE: /run/secrets/wp_admin_user
+      WP_ADMIN_PASS_FILE: /run/secrets/wp_admin_pass
+      WP_ADMIN_MAIL_FILE: /run/secrets/wp_admin_mail
+      WP_USER_USER_FILE: /run/secrets/wp_user_user
+      WP_USER_PASS_FILE: /run/secrets/wp_user_pass
+      WP_USER_MAIL_FILE: /run/secrets/wp_user_mail
+
+    secrets:
+      - db_name
+      - db_user
+      - db_password
+      - db_root_password
+      - wp_admin_user
+      - wp_admin_pass
+      - wp_admin_mail
+      - wp_user_user
+      - wp_user_pass
+      - wp_user_mail
 
     volumes:
       - wordpress_volume:/var/www/html
-      
+
 networks:
   inception_network:
     name: inception_network
@@ -94,6 +123,20 @@ secrets:
     file: ../secrets/db_root_password.txt
   db_user:
     file: ../secrets/db_user.txt
+  db_name:
+    file: ../secrets/db_name.txt
+  wp_admin_user:
+    file: ../secrets/wp_admin_user.txt
+  wp_admin_pass:
+    file: ../secrets/wp_admin_pass.txt
+  wp_admin_mail:
+    file: ../secrets/wp_admin_mail.txt
+  wp_user_user:
+    file: ../secrets/wp_user_user.txt
+  wp_user_pass:
+    file: ../secrets/wp_user_pass.txt
+  wp_user_mail:
+    file: ../secrets/wp_user_mail.txt
 
 volumes:
 
