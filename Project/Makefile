@@ -21,7 +21,7 @@ MARIADB_DIR 		= 	$(BUILD_DIR)/mariadb
 WORDPRESS_DIR 		= 	$(BUILD_DIR)/wordpress
 
 # volume mount directories
-VOLUME_MOUNT		= 	/home/manuel/dockerVolume
+VOLUME_MOUNT		= 	/workspaces/inception_42/Project/dockerVolume
 WORDPRESS_VOLUME	= 	$(VOLUME_MOUNT)/wordpress
 MARIADB_VOLUME		= 	$(VOLUME_MOUNT)/mariadb
 
@@ -64,11 +64,20 @@ WORDPRESS_FILES 	= 	$(WORDPRESS_DIR)/Dockerfile						\
 all: $(CONFIG_PATH) $(SECRETS_FILES) $(NGINX_FILES) $(MARIADB_FILES) $(WORDPRESS_FILES) nginx-config phpfpm-config generate-certs
 	@mkdir -p $(WORDPRESS_VOLUME)
 	@mkdir -p $(MARIADB_VOLUME)
+	chown -R $(whoami):$(whoami) $(WORDPRESS_VOLUME)
+	chown -R $(whoami):$(whoami) $(MARIADB_VOLUME)
 
+	export $$(cat $(CONFIG_PATH) | xargs)
+	@echo "VOLUME_MOUNT is set to: ${VOLUME_MOUNT}"
 	docker compose -f $(COMPOSE_PATH) --env-file $(CONFIG_PATH) up --build
+	@echo "VOLUME_MOUNT is set to: ${VOLUME_MOUNT}"
+
 
 	#clean
 
+down:
+	export $$(cat $(CONFIG_PATH) | xargs)
+	docker compose -f $(COMPOSE_PATH)  --env-file $(CONFIG_PATH)  down
 
 clean:
 	rm -rf $(WORDPRESS_DIR)/conf/php-fpm.conf
@@ -78,6 +87,8 @@ clean:
 	rm -rf $(MARIADB_VOLUME)
 
 fclean: clean
+	rm -rf mariadb
+	rm -rf wordpress
 	yes | docker system prune -a -f
 	yes | docker image prune -a -f
 	yes | docker container prune -f
@@ -85,7 +96,7 @@ fclean: clean
 	yes | docker network prune -f
 	yes | docker volume prune -f
 
-re: fclean all
+re: clean all
 
 git: fclean
 	(cd .. && git add . && git commit -m "update" && git push)
@@ -94,21 +105,21 @@ git: fclean
 
 nginx-config: $(NGINX_FILES)
 	( \
-		export $(shell cat $(CONFIG_PATH)); \
+		export $$(cat $(CONFIG_PATH) | xargs); \
 		var_list=$$(cat $(CONFIG_PATH) | awk '{print $$1}' | cut -d '=' -f1 | sed 's/^/$$/' | paste -sd, - | sed "s/^/'/" | sed "s/$$/'/"); \
 		envsubst $$var_list < $(NGINX_DIR)/conf/nginx_template.conf > $(NGINX_DIR)/conf/nginx.conf; \
 	)
 
 phpfpm-config: $(WORDPRESS_FILES)
 	( \
-		export $(shell cat $(CONFIG_PATH)); \
+		export $$(cat $(CONFIG_PATH) | xargs); \
 		var_list=$$(cat $(CONFIG_PATH) | awk '{print $$1}' | cut -d '=' -f1 | sed 's/^/$$/' | paste -sd, - | sed "s/^/'/" | sed "s/$$/'/"); \
 		envsubst $$var_list < $(WORDPRESS_DIR)/conf/php-fpm_template.conf > $(WORDPRESS_DIR)/conf/php-fpm.conf; \
 	)
 
 generate-certs:
 	( \
-		export $(cat $(CONFIG_PATH) | xargs); \
+		export $$(cat $(CONFIG_PATH) | xargs); \
 		mkdir -p $(CERTIFICATES_DIR); \
 		openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 				-keyout $(SELF-SIGNED_KEY) \
@@ -116,4 +127,8 @@ generate-certs:
 				-subj "/C=PT/ST=Lisbon/L=Lisbon/O=42Lisboa/CN=$DOMAIN_NAME"; \
 	)
 
-.PHONY: clean fclean re git nginx-config  phpfpm-config generate-certs
+exporting-config:
+	export $$(cat $(CONFIG_PATH) | xargs)
+	@echo "VOLUME_MOUNT is set to: ${VOLUME_MOUNT}"
+
+.PHONY: down clean fclean re git nginx-config  phpfpm-config generate-certs exporting-config

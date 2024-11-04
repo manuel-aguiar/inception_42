@@ -18,9 +18,9 @@ RUN             apt-get update -y && \
                 apt-get upgrade -y && \
                 apt-get install mariadb-server -y
 
-COPY            tools/runMariaDB.sh .
+COPY            tools/runMariaDB.sh /etc/runMariaDB.sh
 
-RUN             chmod +x runMariaDB.sh && \
+RUN             chmod +x /etc/runMariaDB.sh && \
 				apt-get clean && \
 				rm -rf /var/lib/apt/lists/*
 
@@ -28,4 +28,4 @@ STOPSIGNAL      SIGQUIT
 
 WORKDIR        /var/lib/mysql
 
-ENTRYPOINT     ["./runMariaDB.sh"]
+ENTRYPOINT     ["/bin/bash", "/etc/runMariaDB.sh"]

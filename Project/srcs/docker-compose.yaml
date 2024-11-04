@@ -26,8 +26,8 @@ services:
     image: nginx_image
 
     environment:
-      SELF_SIGNED_CERT = /run/secrets/self_signed_cert
-      SELF_SIGNED_KEY = /run/secrets/self_signed_key
+      SELF_SIGNED_CERT: /run/secrets/self_signed_cert
+      SELF_SIGNED_KEY: /run/secrets/self_signed_key
     ports:
       - "${PORT_FORWARD_HTTPS_HOST_TO_LOCAL}:${PORT_LISTEN_HTTPS}"
     networks:
@@ -40,7 +40,7 @@ services:
       - self_signed_key
 
     volumes:
-      - ./requirements/nginx/tools/nginx.conf:/etc/nginx/nginx.conf
+      - ./requirements/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
       - wordpress_volume:/var/www/html
 
 
@@ -125,9 +125,9 @@ networks:
 
 secrets:
   self_signed_cert:
-    file: ../secrets/certificates/nginx-selfsigned.crt
+    file: ../secrets/certificates/selfsigned.crt
   self_signed_key:
-    file: ../secrets/certificates/nginx-selfsigned.key
+    file: ../secrets/certificates/selfsigned.key
   db_password:
     file: ../secrets/db_password.txt
   db_root_password:
@@ -156,7 +156,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/manuel/dockerVolume/mariadb
+      device: ${VOLUME_MOUNT}/mariadb
       o: 'bind'
 
   wordpress_volume:
@@ -164,5 +164,5 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/manuel/dockerVolume/wordpress
+      device: ${VOLUME_MOUNT}/wordpress
       o: 'bind'
