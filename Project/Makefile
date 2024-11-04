@@ -12,6 +12,7 @@
 
 SRCS_DIR 			= 	srcs
 SECRETS_DIR			= 	secrets
+CERTIFICATES_DIR	= 	$(SECRETS_DIR)/certificates
 
 # image build directories
 BUILD_DIR			= 	$(SRCS_DIR)/requirements
@@ -33,24 +34,55 @@ CONFIG_PATH			= 	$(SRCS_DIR)/$(CONFIG_FILE)
 COMPOSE_FILE		= 	docker-compose.yaml
 COMPOSE_PATH		= 	$(SRCS_DIR)/$(COMPOSE_FILE)
 
-# file descrimination 
-SECRETS_FILES		= 	$(SECRETS_DIR)/credentials.txt				 	\
+# file descrimination
+SECRETS_FILES		= 	$(SECRETS_DIR)/db_name.txt					 	\
+						$(SECRETS_DIR)/db_user.txt						\
 					  	$(SECRETS_DIR)/db_password.txt					\
 					  	$(SECRETS_DIR)/db_root_password.txt 			\
-					  	$(SECRETS_DIR)/db_user.txt
+						$(SECRETS_DIR)/wp_admin_user.txt				\
+					  	$(SECRETS_DIR)/wp_admin_pass.txt				\
+						$(SECRETS_DIR)/wp_admin_mail.txt				\
+						$(SECRETS_DIR)/wp_user_user.txt					\
+					  	$(SECRETS_DIR)/wp_user_pass.txt					\
+						$(SECRETS_DIR)/wp_user_mail.txt
+
+SELF-SIGNED_KEY		= 	$(CERTIFICATES_DIR)/selfsigned.key
+SELF-SIGNED_CERT	= 	$(CERTIFICATES_DIR)/selfsigned.crt
 
 NGINX_FILES			= 	$(NGINX_DIR)/Dockerfile 						\
 					  	$(NGINX_DIR)/tools/nginx_template.conf
 
 MARIADB_FILES		= 	$(MARIADB_DIR)/Dockerfile
 
-WORDPRESS_FILES 	= 	$(WORDPRESS_DIR)/Dockerfile
+WORDPRESS_FILES 	= 	$(WORDPRESS_DIR)/Dockerfile						\
+						$(WORDPRESS_DIR)/tools/php-fpm_template.conf
 
 
-all: $(CONFIG_PATH) $(SECRETS_FILES) $(NGINX_FILES) $(MARIADB_FILES) $(WORDPRESS_FILES)
-	@cp $(CONFIG_PATH) $(NGINX_DIR)
-	@cp $(CONFIG_PATH) $(MARIADB_DIR)
-	@cp $(CONFIG_PATH) $(WORDPRESS_DIR)
+nginx-config: $(NGINX_FILES)
+	( \
+		export $(shell cat $(CONFIG_PATH)); \
+		var_list=$$(cat $(CONFIG_PATH) | awk '{print $$1}' | cut -d '=' -f1 | sed 's/^/$$/' | paste -sd, - | sed "s/^/'/" | sed "s/$$/'/"); \
+		envsubst $$var_list < $(NGINX_DIR)/tools/nginx_template.conf > $(NGINX_DIR)/tools/nginx.conf; \
+	)
+
+phpfpm-config: $(WORDPRESS_FILES)
+	( \
+		export $(shell cat $(CONFIG_PATH)); \
+		var_list=$$(cat $(CONFIG_PATH) | awk '{print $$1}' | cut -d '=' -f1 | sed 's/^/$$/' | paste -sd, - | sed "s/^/'/" | sed "s/$$/'/"); \
+		envsubst $$var_list < $(WORDPRESS_DIR)/tools/php-fpm_template.conf > $(WORDPRESS_DIR)/tools/php-fpm.conf; \
+	)
+
+generate-certs:
+	( \
+		export $(cat $(CONFIG_PATH) | xargs); \
+		mkdir -p $(CERTIFICATES_DIR); \
+		openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+				-keyout $(SELF-SIGNED_KEY) \
+				-out $(SELF-SIGNED_CERT) \
+				-subj "/C=PT/ST=Lisbon/L=Lisbon/O=42Lisboa/CN=$DOMAIN_NAME"; \
+	)
+
+all: $(CONFIG_PATH) $(SECRETS_FILES) $(NGINX_FILES) $(MARIADB_FILES) $(WORDPRESS_FILES) nginx-config phpfpm-config generate-certs
 	@mkdir -p $(WORDPRESS_VOLUME)
 	@mkdir -p $(MARIADB_VOLUME)
 
@@ -60,10 +92,9 @@ all: $(CONFIG_PATH) $(SECRETS_FILES) $(NGINX_FILES) $(MARIADB_FILES) $(WORDPRESS
 
 
 clean:
-	@if [ -f $(NGINX_DIR)/$(CONFIG_FILE) ]; then rm $(NGINX_DIR)/$(CONFIG_FILE); fi
-	@if [ -f $(MARIADB_DIR)/$(CONFIG_FILE) ]; then rm $(MARIADB_DIR)/$(CONFIG_FILE); fi
-	@if [ -f $(WORDPRESS_DIR)/$(CONFIG_FILE) ]; then rm $(WORDPRESS_DIR)/$(CONFIG_FILE); fi
-
+	rm -rf $(CERTIFICATES_DIR)
+	rm -rf $(WORDPRESS_VOLUME)
+	rm -rf $(MARIADB_VOLUME)
 fclean: clean
 	yes | docker system prune -a -f
 	yes | docker image prune -a -f
@@ -71,8 +102,6 @@ fclean: clean
 	yes | docker builder prune -a -f
 	yes | docker network prune -f
 	yes | docker volume prune -f
-	rm -rf $(WORDPRESS_VOLUME)
-	rm -rf $(MARIADB_VOLUME)
 
 re: fclean all
 
