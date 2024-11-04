@@ -50,26 +50,28 @@ SELF-SIGNED_KEY		= 	$(CERTIFICATES_DIR)/selfsigned.key
 SELF-SIGNED_CERT	= 	$(CERTIFICATES_DIR)/selfsigned.crt
 
 NGINX_FILES			= 	$(NGINX_DIR)/Dockerfile 						\
-					  	$(NGINX_DIR)/tools/nginx_template.conf
+					  	$(NGINX_DIR)/conf/nginx_template.conf
 
-MARIADB_FILES		= 	$(MARIADB_DIR)/Dockerfile
+MARIADB_FILES		= 	$(MARIADB_DIR)/Dockerfile						\
+						$(MARIADB_DIR)/tools/runMariaDB.sh
 
 WORDPRESS_FILES 	= 	$(WORDPRESS_DIR)/Dockerfile						\
-						$(WORDPRESS_DIR)/tools/php-fpm_template.conf
+						$(WORDPRESS_DIR)/conf/php-fpm_template.conf		\
+						$(WORDPRESS_DIR)/tools/runWordpress.sh
 
 
 nginx-config: $(NGINX_FILES)
 	( \
 		export $(shell cat $(CONFIG_PATH)); \
 		var_list=$$(cat $(CONFIG_PATH) | awk '{print $$1}' | cut -d '=' -f1 | sed 's/^/$$/' | paste -sd, - | sed "s/^/'/" | sed "s/$$/'/"); \
-		envsubst $$var_list < $(NGINX_DIR)/tools/nginx_template.conf > $(NGINX_DIR)/tools/nginx.conf; \
+		envsubst $$var_list < $(NGINX_DIR)/conf/nginx_template.conf > $(NGINX_DIR)/conf/nginx.conf; \
 	)
 
 phpfpm-config: $(WORDPRESS_FILES)
 	( \
 		export $(shell cat $(CONFIG_PATH)); \
 		var_list=$$(cat $(CONFIG_PATH) | awk '{print $$1}' | cut -d '=' -f1 | sed 's/^/$$/' | paste -sd, - | sed "s/^/'/" | sed "s/$$/'/"); \
-		envsubst $$var_list < $(WORDPRESS_DIR)/tools/php-fpm_template.conf > $(WORDPRESS_DIR)/tools/php-fpm.conf; \
+		envsubst $$var_list < $(WORDPRESS_DIR)/conf/php-fpm_template.conf > $(WORDPRESS_DIR)/conf/php-fpm.conf; \
 	)
 
 generate-certs:
@@ -92,6 +94,8 @@ all: $(CONFIG_PATH) $(SECRETS_FILES) $(NGINX_FILES) $(MARIADB_FILES) $(WORDPRESS
 
 
 clean:
+	rm -rf $(WORDPRESS_DIR)/conf/php-fpm.conf
+	rm -rf $(NGINX_DIR)/conf/nginx.conf
 	rm -rf $(CERTIFICATES_DIR)
 	rm -rf $(WORDPRESS_VOLUME)
 	rm -rf $(MARIADB_VOLUME)

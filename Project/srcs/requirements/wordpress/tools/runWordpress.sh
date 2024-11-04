@@ -8,7 +8,7 @@ then
 	wp core download --allow-root
 
 	wp config create --allow-root \
-					 --dbname=$MYSQL_DATABASE_FILE \
+					 --dbname=$MYSQL_DB_NAME_FILE \
 					 --dbuser=$MYSQL_USER_FILE \
 					 --dbpass=$MYSQL_PASSWORD_FILE \
 					 --dbhost="${HOSTNAME_DB}:${PORT_LISTEN_DATABASE}"

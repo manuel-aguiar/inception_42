@@ -20,7 +20,8 @@ RUN             apt-get update -y && \
 
 COPY            tools/runMariaDB.sh .
 
-RUN             apt-get clean && \
+RUN             chmod +x runMariaDB.sh && \
+				apt-get clean && \
 				rm -rf /var/lib/apt/lists/*
 
 STOPSIGNAL      SIGQUIT

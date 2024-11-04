@@ -1,14 +1,16 @@
 #! /bin/bash
 
-if ! [ -d "test123" ]; 
+if ! [ -d "$MYSQL_DB_NAME_FILE" ];
 then
 	service mariadb start
 
 	mariadb -u root -e "
-	CREATE DATABASE IF NOT EXISTS test123;
-	CREATE USER IF NOT EXISTS 'toze'@'%' IDENTIFIED BY 'toze';
-	GRANT ALL PRIVILEGES ON test123.* TO 'toze'@'%';
+	CREATE DATABASE IF NOT EXISTS $MYSQL_DB_NAME_FILE;
+	CREATE USER IF NOT EXISTS '$MYSQL_USER_FILE'@'%' IDENTIFIED BY '$MYSQL_PASSWORD_FILE';
+	GRANT ALL PRIVILEGES ON $MYSQL_DB_NAME_FILE.* TO '$MYSQL_USER_FILE'@'%';
+	ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD_FILE';
 	FLUSH PRIVILEGES;
 	SHUTDOWN;"
 fi
-mysqld_safe --bind-address=0.0.0.0
+
+mysqld_safe --bind-address=0.0.0.0 --port=${PORT_LISTEN_DATABASE}
