@@ -114,7 +114,7 @@ services:
       - wp_user_mail
 
     volumes:
-      - ./requirements/wordpress/tools/php-fpm.conf:/
+      - ./requirements/wordpress/tools/php-fpm.conf:/etc/php/8.3/fpm/pool.d/inception.conf
       - wordpress_volume:/var/www/html
 
 networks:

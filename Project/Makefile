@@ -60,29 +60,6 @@ WORDPRESS_FILES 	= 	$(WORDPRESS_DIR)/Dockerfile						\
 						$(WORDPRESS_DIR)/tools/runWordpress.sh
 
 
-nginx-config: $(NGINX_FILES)
-	( \
-		export $(shell cat $(CONFIG_PATH)); \
-		var_list=$$(cat $(CONFIG_PATH) | awk '{print $$1}' | cut -d '=' -f1 | sed 's/^/$$/' | paste -sd, - | sed "s/^/'/" | sed "s/$$/'/"); \
-		envsubst $$var_list < $(NGINX_DIR)/conf/nginx_template.conf > $(NGINX_DIR)/conf/nginx.conf; \
-	)
-
-phpfpm-config: $(WORDPRESS_FILES)
-	( \
-		export $(shell cat $(CONFIG_PATH)); \
-		var_list=$$(cat $(CONFIG_PATH) | awk '{print $$1}' | cut -d '=' -f1 | sed 's/^/$$/' | paste -sd, - | sed "s/^/'/" | sed "s/$$/'/"); \
-		envsubst $$var_list < $(WORDPRESS_DIR)/conf/php-fpm_template.conf > $(WORDPRESS_DIR)/conf/php-fpm.conf; \
-	)
-
-generate-certs:
-	( \
-		export $(cat $(CONFIG_PATH) | xargs); \
-		mkdir -p $(CERTIFICATES_DIR); \
-		openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-				-keyout $(SELF-SIGNED_KEY) \
-				-out $(SELF-SIGNED_CERT) \
-				-subj "/C=PT/ST=Lisbon/L=Lisbon/O=42Lisboa/CN=$DOMAIN_NAME"; \
-	)
 
 all: $(CONFIG_PATH) $(SECRETS_FILES) $(NGINX_FILES) $(MARIADB_FILES) $(WORDPRESS_FILES) nginx-config phpfpm-config generate-certs
 	@mkdir -p $(WORDPRESS_VOLUME)
@@ -113,4 +90,30 @@ re: fclean all
 git: fclean
 	(cd .. && git add . && git commit -m "update" && git push)
 
-.PHONY: clean fclean git
+
+
+nginx-config: $(NGINX_FILES)
+	( \
+		export $(shell cat $(CONFIG_PATH)); \
+		var_list=$$(cat $(CONFIG_PATH) | awk '{print $$1}' | cut -d '=' -f1 | sed 's/^/$$/' | paste -sd, - | sed "s/^/'/" | sed "s/$$/'/"); \
+		envsubst $$var_list < $(NGINX_DIR)/conf/nginx_template.conf > $(NGINX_DIR)/conf/nginx.conf; \
+	)
+
+phpfpm-config: $(WORDPRESS_FILES)
+	( \
+		export $(shell cat $(CONFIG_PATH)); \
+		var_list=$$(cat $(CONFIG_PATH) | awk '{print $$1}' | cut -d '=' -f1 | sed 's/^/$$/' | paste -sd, - | sed "s/^/'/" | sed "s/$$/'/"); \
+		envsubst $$var_list < $(WORDPRESS_DIR)/conf/php-fpm_template.conf > $(WORDPRESS_DIR)/conf/php-fpm.conf; \
+	)
+
+generate-certs:
+	( \
+		export $(cat $(CONFIG_PATH) | xargs); \
+		mkdir -p $(CERTIFICATES_DIR); \
+		openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+				-keyout $(SELF-SIGNED_KEY) \
+				-out $(SELF-SIGNED_CERT) \
+				-subj "/C=PT/ST=Lisbon/L=Lisbon/O=42Lisboa/CN=$DOMAIN_NAME"; \
+	)
+
+.PHONY: clean fclean re git nginx-config  phpfpm-config generate-certs
