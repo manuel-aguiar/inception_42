@@ -18,6 +18,7 @@ then
     ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';
     FLUSH PRIVILEGES;
     SHUTDOWN;"
+
 fi
 
-exec mysqld_safe --bind-address=0.0.0.0 --port=${PORT_LISTEN_DATABASE}
+/usr/bin/mariadbd-safe --bind-address=0.0.0.0 --port=${PORT_LISTEN_DATABASE}

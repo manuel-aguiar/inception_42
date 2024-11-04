@@ -24,8 +24,8 @@ RUN             chmod +x /etc/runMariaDB.sh && \
 				apt-get clean && \
 				rm -rf /var/lib/apt/lists/*
 
-STOPSIGNAL      SIGQUIT
+STOPSIGNAL      SIGTERM
 
 WORKDIR        /var/lib/mysql
 
-ENTRYPOINT     ["/bin/bash", "/etc/runMariaDB.sh"]
+ENTRYPOINT     ["/etc/runMariaDB.sh"]

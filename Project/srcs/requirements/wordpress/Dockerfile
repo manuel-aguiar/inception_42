@@ -20,6 +20,8 @@ RUN 		apt-get update -y && \
 			curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
 			chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp && \
 			\
+			chmod +x /etc/runWordpress.sh && \
+			\
 			apt-get clean && \
 			rm -rf /var/lib/apt/lists/*
 
@@ -29,4 +31,4 @@ STOPSIGNAL 	SIGQUIT
 
 RUN 		mkdir -p /run/php
 
-ENTRYPOINT  ["/bin/bash", "/etc/runWordpress.sh"]
+ENTRYPOINT  ["/etc/runWordpress.sh"]

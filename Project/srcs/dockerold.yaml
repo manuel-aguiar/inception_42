@@ -6,7 +6,7 @@
 #    By: mmaria-d <mmaria-d@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/22 08:50:19 by marvin            #+#    #+#              #
-#    Updated: 2024/11/04 19:10:26 by mmaria-d         ###   ########.fr        #
+#    Updated: 2024/11/04 21:21:24 by mmaria-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -124,7 +124,7 @@ services:
       - wp_user_mail
 
     volumes:
-      - ./requirements/wordpress/tools/php-fpm.conf:/etc/php/8.3/fpm/pool.d/inception.conf
+      - ./requirements/wordpress/tools/php-fpm.conf:/etc/php/7.4/fpm/pool.d/inception.conf
       - wordpress_volume:/var/www/html
 
     healthcheck:

@@ -19,6 +19,7 @@ services:
     <<: *config
     container_name: nginx_container
     hostname: ${HOSTNAME_HTTPS}
+    init: true
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
@@ -47,6 +48,7 @@ services:
     <<: *config
     container_name: mariadb_container
     hostname: ${HOSTNAME_DB}
+    init: true
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
@@ -78,6 +80,7 @@ services:
     <<: *config
     container_name: wordpress_container
     hostname: ${HOSTNAME_PHP}
+    init: true
     build:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
@@ -115,7 +118,7 @@ services:
       - wp_user_mail
 
     volumes:
-      - ./requirements/wordpress/conf/php-fpm.conf:/etc/php/8.3/fpm/pool.d/inception.conf
+      - ./requirements/wordpress/conf/php-fpm.conf:/etc/php/7.4/fpm/pool.d/inception.conf
       - wordpress_volume:/var/www/html
 
 networks:

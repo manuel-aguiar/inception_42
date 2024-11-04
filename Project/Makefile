@@ -66,6 +66,8 @@ all: $(CONFIG_PATH) $(SECRETS_FILES) $(NGINX_FILES) $(MARIADB_FILES) $(WORDPRESS
 	@mkdir -p $(MARIADB_VOLUME)
 	chown -R $(whoami):$(whoami) $(WORDPRESS_VOLUME)
 	chown -R $(whoami):$(whoami) $(MARIADB_VOLUME)
+	chmod 777 $(SELF-SIGNED_KEY)	
+	chmod 777 $(SELF-SIGNED_CERT)
 
 	export $$(cat $(CONFIG_PATH) | xargs)
 	@echo "VOLUME_MOUNT is set to: ${VOLUME_MOUNT}"
