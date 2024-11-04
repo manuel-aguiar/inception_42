@@ -20,4 +20,4 @@ then
     SHUTDOWN;"
 fi
 
-mysqld_safe --bind-address=0.0.0.0 --port=${PORT_LISTEN_DATABASE}
+exec mysqld_safe --bind-address=0.0.0.0 --port=${PORT_LISTEN_DATABASE}

@@ -33,7 +33,7 @@ services:
     networks:
       - inception_network
 
-    restart: always
+    restart: unless-stopped
 
     secrets:
       - self_signed_cert
@@ -42,7 +42,6 @@ services:
     volumes:
       - ./requirements/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
       - wordpress_volume:/var/www/html
-
 
   mariadb:
     <<: *config
@@ -69,9 +68,11 @@ services:
       - db_password
       - db_root_password
 
-    restart: always
+    restart: unless-stopped
     volumes:
       - mariadb_volume:/var/lib/mysql
+
+
 
   wordpress:
     <<: *config
@@ -87,7 +88,7 @@ services:
     networks:
       - inception_network
 
-    restart: always
+    restart: unless-stopped
 
     environment:
       MYSQL_DB_NAME_FILE: /run/secrets/db_name
@@ -114,7 +115,7 @@ services:
       - wp_user_mail
 
     volumes:
-      - ./requirements/wordpress/tools/php-fpm.conf:/etc/php/8.3/fpm/pool.d/inception.conf
+      - ./requirements/wordpress/conf/php-fpm.conf:/etc/php/8.3/fpm/pool.d/inception.conf
       - wordpress_volume:/var/www/html
 
 networks:

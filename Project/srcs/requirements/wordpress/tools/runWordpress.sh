@@ -39,4 +39,4 @@ then
 	echo "CONFIG IS DONE"
 fi
 
-/usr/sbin/php-fpm7.4 -F
+exec /usr/sbin/php-fpm7.4 -F

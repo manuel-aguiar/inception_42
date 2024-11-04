@@ -21,7 +21,7 @@ MARIADB_DIR 		= 	$(BUILD_DIR)/mariadb
 WORDPRESS_DIR 		= 	$(BUILD_DIR)/wordpress
 
 # volume mount directories
-VOLUME_MOUNT		= 	/workspaces/inception_42/Project/dockerVolume
+VOLUME_MOUNT		= 	/home/manuel/Desktop/inception_42/Project/dockerVolume
 WORDPRESS_VOLUME	= 	$(VOLUME_MOUNT)/wordpress
 MARIADB_VOLUME		= 	$(VOLUME_MOUNT)/mariadb
 
@@ -75,9 +75,13 @@ all: $(CONFIG_PATH) $(SECRETS_FILES) $(NGINX_FILES) $(MARIADB_FILES) $(WORDPRESS
 
 	#clean
 
+up:
+	export $$(cat $(CONFIG_PATH) | xargs)
+	docker compose -f $(COMPOSE_PATH)  --env-file $(CONFIG_PATH) up
+
 down:
 	export $$(cat $(CONFIG_PATH) | xargs)
-	docker compose -f $(COMPOSE_PATH)  --env-file $(CONFIG_PATH)  down
+	docker compose -f $(COMPOSE_PATH)  --env-file $(CONFIG_PATH) down
 
 clean:
 	rm -rf $(WORDPRESS_DIR)/conf/php-fpm.conf
@@ -87,8 +91,20 @@ clean:
 	rm -rf $(MARIADB_VOLUME)
 
 fclean: clean
+	docker stop mariadb_container || true
+	docker stop wordpress_container || true
+	docker stop nginx_container || true
 	rm -rf mariadb
 	rm -rf wordpress
+	docker rm -f mariadb_container || true
+	docker rm -f wordpress_container || true
+	docker rm -f nginx_container || true
+	docker rmi -f mariadb_image || true
+	docker rmi -f wordpress_image || true
+	docker rmi -f nginx_image || true
+	docker volume rm -f mariadb_volume || true
+	docker volume rm -f wordpress_volume || true
+
 	yes | docker system prune -a -f
 	yes | docker image prune -a -f
 	yes | docker container prune -f
@@ -96,7 +112,7 @@ fclean: clean
 	yes | docker network prune -f
 	yes | docker volume prune -f
 
-re: clean all
+re: fclean all
 
 git: fclean
 	(cd .. && git add . && git commit -m "update" && git push)
@@ -131,4 +147,4 @@ exporting-config:
 	export $$(cat $(CONFIG_PATH) | xargs)
 	@echo "VOLUME_MOUNT is set to: ${VOLUME_MOUNT}"
 
-.PHONY: down clean fclean re git nginx-config  phpfpm-config generate-certs exporting-config
+.PHONY: up down clean fclean re git nginx-config  phpfpm-config generate-certs exporting-config
