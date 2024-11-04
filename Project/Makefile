@@ -89,15 +89,12 @@ clean:
 	rm -rf $(WORDPRESS_DIR)/conf/php-fpm.conf
 	rm -rf $(NGINX_DIR)/conf/nginx.conf
 	rm -rf $(CERTIFICATES_DIR)
-	rm -rf $(WORDPRESS_VOLUME)
-	rm -rf $(MARIADB_VOLUME)
+	rm -rf $(VOLUME_MOUNT)
 
 fclean: clean
 	docker stop mariadb_container || true
 	docker stop wordpress_container || true
 	docker stop nginx_container || true
-	rm -rf mariadb
-	rm -rf wordpress
 	docker rm -f mariadb_container || true
 	docker rm -f wordpress_container || true
 	docker rm -f nginx_container || true
