@@ -107,12 +107,15 @@ fclean: clean
 	docker stop mariadb_container || true
 	docker stop wordpress_container || true
 	docker stop nginx_container || true
+	docker stop redis_container || true
 	docker rm -f mariadb_container || true
 	docker rm -f wordpress_container || true
 	docker rm -f nginx_container || true
+	docker rm -f redis_container || true
 	docker rmi -f mariadb || true
 	docker rmi -f wordpress || true
 	docker rmi -f nginx || true
+	docker rmi -f redis || true
 	docker volume rm -f mariadb_volume || true
 	docker volume rm -f wordpress_volume || true
 
@@ -131,21 +134,21 @@ git: fclean
 
 
 nginx-config: $(NGINX_FILES)
-	( \
+	@( \
 		export $$(cat $(CONFIG_PATH) | xargs); \
 		var_list=$$(cat $(CONFIG_PATH) | awk '{print $$1}' | cut -d '=' -f1 | sed 's/^/$$/' | paste -sd, - | sed "s/^/'/" | sed "s/$$/'/"); \
 		envsubst $$var_list < $(NGINX_DIR)/conf/nginx_template.conf > $(NGINX_DIR)/conf/nginx.conf; \
 	)
 
 phpfpm-config: $(WORDPRESS_FILES)
-	( \
+	@( \
 		export $$(cat $(CONFIG_PATH) | xargs); \
 		var_list=$$(cat $(CONFIG_PATH) | awk '{print $$1}' | cut -d '=' -f1 | sed 's/^/$$/' | paste -sd, - | sed "s/^/'/" | sed "s/$$/'/"); \
 		envsubst $$var_list < $(WORDPRESS_DIR)/conf/php-fpm_template.conf > $(WORDPRESS_DIR)/conf/php-fpm.conf; \
 	)
 
 generate-certs:
-	( \
+	@( \
 		export $$(cat $(CONFIG_PATH) | xargs); \
 		mkdir -p $(CERTIFICATES_DIR); \
 		openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
@@ -155,7 +158,7 @@ generate-certs:
 	)
 
 exporting-config:
-	export $$(cat $(CONFIG_PATH) | xargs)
+	@export $$(cat $(CONFIG_PATH) | xargs)
 	@echo "VOLUME_MOUNT is set to: ${VOLUME_MOUNT}"
 
 .PHONY: up down start stop clean fclean re git nginx-config  phpfpm-config generate-certs exporting-config
