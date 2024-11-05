@@ -13,7 +13,7 @@
 FROM 		debian:bullseye-slim
 
 RUN 		apt-get update -y && \
-			apt-get install nginx -y && \
+			apt-get install nginx --no-install-recommends -y && \
 			\
 			apt-get clean && \
 			rm -rf /var/lib/apt/lists/*

@@ -16,7 +16,7 @@ FROM            debian:bullseye-slim
 
 RUN             apt-get update -y && \
                 apt-get upgrade -y && \
-                apt-get install mariadb-server -y
+                apt-get install mariadb-server --no-install-recommends -y
 
 COPY            tools/runMariaDB.sh /etc/runMariaDB.sh
 

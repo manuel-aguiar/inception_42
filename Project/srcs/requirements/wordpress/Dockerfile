@@ -22,6 +22,7 @@ RUN 		apt-get update -y && \
 			\
 			chmod +x /etc/runWordpress.sh && \
 			\
+			apt-get remove curl -y && \
 			apt-get clean && \
 			rm -rf /var/lib/apt/lists/*
 
