@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-FROM 		debian:bullseye
+FROM 		debian:bullseye-slim
 
 COPY 		tools/runWordpress.sh /etc/runWordpress.sh
 

@@ -66,7 +66,7 @@ all: $(CONFIG_PATH) $(SECRETS_FILES) $(NGINX_FILES) $(MARIADB_FILES) $(WORDPRESS
 	@mkdir -p $(MARIADB_VOLUME)
 	chown -R $(whoami):$(whoami) $(WORDPRESS_VOLUME)
 	chown -R $(whoami):$(whoami) $(MARIADB_VOLUME)
-	chmod 777 $(SELF-SIGNED_KEY)	
+	chmod 777 $(SELF-SIGNED_KEY)
 	chmod 777 $(SELF-SIGNED_CERT)
 
 	export $$(cat $(CONFIG_PATH) | xargs)
@@ -84,6 +84,14 @@ up:
 down:
 	export $$(cat $(CONFIG_PATH) | xargs)
 	docker compose -f $(COMPOSE_PATH)  --env-file $(CONFIG_PATH) down
+
+start:
+	export $$(cat $(CONFIG_PATH) | xargs)
+	docker compose -f $(COMPOSE_PATH)  --env-file $(CONFIG_PATH) start
+
+stop:
+	export $$(cat $(CONFIG_PATH) | xargs)
+	docker compose -f $(COMPOSE_PATH)  --env-file $(CONFIG_PATH) stop
 
 clean:
 	rm -rf $(WORDPRESS_DIR)/conf/php-fpm.conf
@@ -146,4 +154,4 @@ exporting-config:
 	export $$(cat $(CONFIG_PATH) | xargs)
 	@echo "VOLUME_MOUNT is set to: ${VOLUME_MOUNT}"
 
-.PHONY: up down clean fclean re git nginx-config  phpfpm-config generate-certs exporting-config
+.PHONY: up down start stop clean fclean re git nginx-config  phpfpm-config generate-certs exporting-config
