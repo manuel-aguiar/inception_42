@@ -19,6 +19,8 @@ BUILD_DIR			= 	$(SRCS_DIR)/requirements
 NGINX_DIR 			= 	$(BUILD_DIR)/nginx
 MARIADB_DIR 		= 	$(BUILD_DIR)/mariadb
 WORDPRESS_DIR 		= 	$(BUILD_DIR)/wordpress
+REDISCACHE_DIR		= 	$(BUILD_DIR)/redis-cache
+
 
 # volume mount directories
 VOLUME_MOUNT		= 	~/workspaces/inception_42/Project/data
@@ -59,9 +61,11 @@ WORDPRESS_FILES 	= 	$(WORDPRESS_DIR)/Dockerfile						\
 						$(WORDPRESS_DIR)/conf/php-fpm_template.conf		\
 						$(WORDPRESS_DIR)/tools/runWordpress.sh
 
+REDISCACHE_FILES	= 	$(REDISCACHE_DIR)/Dockerfile					\
+						$(REDISCACHE_DIR)/tools/runRedisCache.sh
 
 
-all: $(CONFIG_PATH) $(SECRETS_FILES) $(NGINX_FILES) $(MARIADB_FILES) $(WORDPRESS_FILES) nginx-config phpfpm-config generate-certs
+all: $(CONFIG_PATH) $(SECRETS_FILES) $(NGINX_FILES) $(MARIADB_FILES) $(WORDPRESS_FILES) $(REDISCACHE_FILES) nginx-config phpfpm-config generate-certs
 	@mkdir -p $(WORDPRESS_VOLUME)
 	@mkdir -p $(MARIADB_VOLUME)
 	chown -R $(whoami):$(whoami) $(WORDPRESS_VOLUME)
