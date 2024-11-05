@@ -25,7 +25,7 @@
 
 #############       NAMES       ##############
 VM_NAME="myVM"
-VM_LOCATION="/home/manuel/Desktop/DebianIso"
+VM_LOCATION=~/sgoinfre/inceptionVM
 VM_OS_LINK="https://cdimage.debian.org/mirror/cdimage/archive/11.11.0/amd64/iso-dvd/debian-11.11.0-amd64-DVD-1.iso"
 VM_OS_VIRTUALBOX_NAME="Debian 64"
 
@@ -68,7 +68,8 @@ VM_NAME_DISK="${VM_NAME}_disk.vdi"
 
 # download the OS image
 mkdir -p "$VM_LOCATION"
-
+echo $VM_OS_PATH
+exit
 if [ ! -f "$VM_OS_PATH" ]; then
     echo "File $VM_OS_IMAGENAME not found. Downloading....."
     wget -O "$VM_OS_PATH" "$VM_OS_LINK"

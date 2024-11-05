@@ -23,7 +23,7 @@ REDISCACHE_DIR		= 	$(BUILD_DIR)/redis-cache
 
 
 # volume mount directories
-VOLUME_MOUNT		= 	~/workspaces/inception_42/Project/data
+VOLUME_MOUNT		= 	/home/mmaria-d/data
 WORDPRESS_VOLUME	= 	$(VOLUME_MOUNT)/wordpress
 MARIADB_VOLUME		= 	$(VOLUME_MOUNT)/mariadb
 
