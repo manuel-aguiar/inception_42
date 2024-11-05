@@ -121,6 +121,24 @@ services:
       - ./requirements/wordpress/conf/php-fpm.conf:/etc/php/7.4/fpm/pool.d/inception.conf
       - wordpress_volume:/var/www/html
 
+  redis:
+    <<: *config
+    container_name: redis_container
+    hostname: ${HOSTNAME_REDIS}
+    init: true
+    build:
+      context: ./requirements/redis-cache
+      dockerfile: Dockerfile
+
+    image: ${HOSTNAME_REDIS}
+
+    expose:
+      - ${PORT_LISTEN_REDIS}
+    networks:
+      - inception_network
+
+    restart: unless-stopped
+
 networks:
   inception_network:
     name: inception_network

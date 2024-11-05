@@ -21,7 +21,7 @@ MARIADB_DIR 		= 	$(BUILD_DIR)/mariadb
 WORDPRESS_DIR 		= 	$(BUILD_DIR)/wordpress
 
 # volume mount directories
-VOLUME_MOUNT		= 	/home/manuel/Desktop/inception_42/Project/dockerVolume
+VOLUME_MOUNT		= 	~/workspaces/inception_42/Project/data
 WORDPRESS_VOLUME	= 	$(VOLUME_MOUNT)/wordpress
 MARIADB_VOLUME		= 	$(VOLUME_MOUNT)/mariadb
 
