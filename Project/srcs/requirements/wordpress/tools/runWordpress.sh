@@ -25,6 +25,12 @@ then
 					 --dbpass=$MYSQL_PASSWORD \
 					 --dbhost="${HOSTNAME_DB}:${PORT_LISTEN_DATABASE}"
 
+	wp plugin install redis-cache --activate --allow-root
+	wp config set WP_REDIS_HOST "${HOSTNAME_REDIS}" --allow-root
+	wp config set WP_REDIS_PORT ${PORT_LISTEN_REDIS} --allow-root
+	wp config set WP_CACHE true --allow-root
+	wp redis enable --allow-root
+
 	wp core install  --allow-root \
 					 --skip-email \
 					 --title=${WEBSITE_TITLE} \
